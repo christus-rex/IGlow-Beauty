@@ -1,20 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">iGlow Beauty</title>
-  <desc id="desc">A soft rose gradient app icon with an iG monogram and glow star.</desc>
+  <desc id="desc">A luminous gold, pink, silver and white app icon with an iG monogram and glow star.</desc>
   <defs>
-    <linearGradient id="bg" x1="64" y1="40" x2="448" y2="472" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f8d8e9"/>
-      <stop offset="0.48" stop-color="#cf6ba1"/>
-      <stop offset="1" stop-color="#702746"/>
+    <linearGradient id="bg" x1="54" y1="42" x2="456" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.28" stop-color="#e6a9c2"/>
+      <stop offset="0.62" stop-color="#c8a24a"/>
+      <stop offset="1" stop-color="#c7cbd1"/>
     </linearGradient>
-    <radialGradient id="shine" cx="0" cy="0" r="1" gradientTransform="translate(168 134) rotate(43) scale(238)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fff" stop-opacity=".82"/>
-      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    <radialGradient id="shine" cx="0" cy="0" r="1" gradientTransform="translate(170 132) rotate(43) scale(250)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity=".94"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="512" height="512" rx="126" fill="url(#bg)"/>
   <circle cx="190" cy="164" r="206" fill="url(#shine)"/>
-  <circle cx="256" cy="256" r="168" fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="3"/>
-  <path d="M368 104l10 25 25 10-25 10-10 25-10-25-25-10 25-10 10-25Z" fill="#fff" fill-opacity=".9"/>
-  <text x="256" y="306" text-anchor="middle" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="180" font-weight="700" letter-spacing="-18">iG</text>
+  <circle cx="256" cy="256" r="168" fill="none" stroke="#ffffff" stroke-opacity=".68" stroke-width="3"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#c7cbd1" stroke-opacity=".42" stroke-width="2"/>
+  <path d="M368 104l10 25 25 10-25 10-10 25-10-25-25-10 25-10 10-25Z" fill="#ffffff"/>
+  <text x="256" y="306" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="180" font-weight="700" letter-spacing="-18">iG</text>
 </svg>
