@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "I Glow Beauty Bar",
+    "address": "1940 William St, Fredericksburg, VA 22401, United States",
+    "phone": "+1 540-370-7167",
+    "rating": 4.9,
+    "review_count": 51,
+    "source": "Google Business Profile",
+    "source_url": "https://share.google/uCmSStOkgCjMG71da",
+    "captured_at": "2026-08-14"
+  },
+  "reviews": [
+    {
+      "id": "google-seed-001",
+      "source": "Google Business Profile",
+      "rating": 5,
+      "reviewer": "Google reviewer",
+      "quote": "Best eyelashes , i always book ! and good prices",
+      "service_tags": ["lashes", "value"],
+      "verified_external_source": true,
+      "featured": true
+    },
+    {
+      "id": "google-seed-002",
+      "source": "Google Business Profile",
+      "rating": 5,
+      "reviewer": "Google reviewer",
+      "quote": "Highly recommend this place if you want to feel confident and taken care of!",
+      "service_tags": ["care", "confidence"],
+      "verified_external_source": true,
+      "featured": true
+    },
+    {
+      "id": "google-seed-003",
+      "source": "Google Business Profile",
+      "rating": 5,
+      "reviewer": "Google reviewer",
+      "summary": "A customer praised the quality of the work and described the result as transformative.",
+      "service_tags": ["results", "craft"],
+      "verified_external_source": true,
+      "featured": true
+    }
+  ]
+}
