@@ -4,12 +4,14 @@
     "id": "string",
     "title": "string",
     "service": "string",
+    "service_tags": ["string"],
     "customer_label": "string",
     "before_image": "string path or URL",
     "after_image": "string path or URL",
     "caption": "string",
     "date": "YYYY-MM-DD or null",
     "consent_confirmed": "boolean",
+    "related_review_ids": ["review id from data/reviews.json"],
     "featured": "boolean"
   }
 }
