@@ -42,7 +42,7 @@ function reviewTags(review) {
 }
 
 function transformationTags(item) {
-  const tags = Array.isArray(item.service_tags) ? item.service_tags : [];
+  const tags = Array.isArray(item.service_tags) ? [...item.service_tags] : [];
   if (item.service) tags.push(item.service);
   return tags.map(normalize).filter(Boolean);
 }
@@ -122,7 +122,9 @@ function renderReviews() {
 }
 
 function relatedReviewLinks(item) {
-  const ids = Array.isArray(item.review_ids) ? item.review_ids : [];
+  const ids = Array.isArray(item.related_review_ids)
+    ? item.related_review_ids
+    : (Array.isArray(item.review_ids) ? item.review_ids : []);
   const related = ids.map((id) => reviewArchive.find((review) => review.id === id)).filter(Boolean);
   if (!related.length) return '';
 
