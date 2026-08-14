@@ -55,27 +55,29 @@ async function loadReviews() {
   }
 }
 
-async function loadCases() {
+async function loadTransformations() {
   if (!caseGrid) return;
   try {
-    const data = await getJson('./data/cases.json');
-    const cases = Array.isArray(data.cases) ? data.cases : [];
-    if (!cases.length) {
-      caseGrid.innerHTML = '<article class="case-card loading-card"><p>No client result sets have been published yet.</p></article>';
+    const data = await getJson('./data/transformations.json');
+    const items = Array.isArray(data.transformations) ? data.transformations : [];
+
+    if (!items.length) {
+      caseGrid.innerHTML = `<article class="case-card">
+        <div class="comparison-placeholder"><div><small>BEFORE</small>PHOTO</div><div><small>AFTER</small>PHOTO</div></div>
+        <div class="case-copy"><h3>First client comparison coming next</h3><p>The repository is ready for consented before-and-after media, service details, and a client caption.</p><span class="status-pill">Awaiting real client media</span></div>
+      </article>`;
       return;
     }
 
-    caseGrid.innerHTML = cases.map((item) => {
-      const hasImages = Boolean(item.before_image && item.after_image && item.client_consent);
-      const media = hasImages
-        ? `<div class="comparison-placeholder"><div style="background-image:url('${escapeHtml(item.before_image)}');background-size:cover;background-position:center"><small>BEFORE</small></div><div style="background-image:url('${escapeHtml(item.after_image)}');background-size:cover;background-position:center"><small>AFTER</small></div></div>`
-        : '<div class="comparison-placeholder"><div><small>BEFORE</small>PHOTO</div><div><small>AFTER</small>PHOTO</div></div>';
-
-      return `<article class="case-card">
-        ${media}
-        <div class="case-copy"><h3>${escapeHtml(item.title || 'Client result')}</h3><p>${escapeHtml(item.caption || '')}</p><span class="status-pill">${hasImages ? 'Published client result' : 'Awaiting consented media'}</span></div>
-      </article>`;
-    }).join('');
+    caseGrid.innerHTML = items
+      .filter((item) => item.consent_confirmed === true && item.before_image && item.after_image)
+      .map((item) => `<article class="case-card">
+        <div class="comparison-placeholder">
+          <div style="background-image:url('${escapeHtml(item.before_image)}');background-size:cover;background-position:center"><small>BEFORE</small></div>
+          <div style="background-image:url('${escapeHtml(item.after_image)}');background-size:cover;background-position:center"><small>AFTER</small></div>
+        </div>
+        <div class="case-copy"><h3>${escapeHtml(item.title || 'Client result')}</h3><p>${escapeHtml(item.caption || '')}</p><span class="status-pill">Published client result</span></div>
+      </article>`).join('') || '<article class="case-card loading-card"><p>No consented client result sets are ready to publish yet.</p></article>';
   } catch (error) {
     console.warn(error);
     caseGrid.innerHTML = '<article class="case-card loading-card"><p>Result data is temporarily unavailable.</p></article>';
@@ -83,7 +85,7 @@ async function loadCases() {
 }
 
 loadReviews();
-loadCases();
+loadTransformations();
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
