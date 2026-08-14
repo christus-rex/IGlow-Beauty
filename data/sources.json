@@ -1,14 +1,25 @@
 {
   "business": "I Glow Beauty Bar",
   "purpose": "Customer proof repository for reviews, testimonials, and before/after work comparisons.",
+  "primary_seed_source_id": "google-share-seed-002",
   "sources": [
+    {
+      "id": "google-share-seed-002",
+      "type": "google_business_share",
+      "label": "I Glow Beauty Bar — Primary Google seed source",
+      "url": "https://share.google/jKOWwjnHrfP1FBAAs",
+      "status": "primary_seed",
+      "priority": 1,
+      "notes": "Primary authoritative user-provided seed source for review, testimonial, and customer proof collection. Import details only when they can be verified from this source or supplied directly by the business owner."
+    },
     {
       "id": "google-share-seed-001",
       "type": "google_business_share",
-      "label": "I Glow Beauty Bar — Google shared listing",
+      "label": "I Glow Beauty Bar — Secondary Google shared listing",
       "url": "https://share.google/uCmSStOkgCjMG71da",
-      "status": "seeded",
-      "notes": "Authoritative user-provided source. Review details should only be imported when they can be verified from the source or supplied directly by the business owner."
+      "status": "seeded_secondary",
+      "priority": 2,
+      "notes": "Previously supplied Google source retained as a secondary seed/reference. Review details should only be imported when they can be verified from the source or supplied directly by the business owner."
     }
   ]
 }
