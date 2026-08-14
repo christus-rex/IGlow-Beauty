@@ -1,8 +1,9 @@
 const installButton = document.querySelector('#installButton');
 const year = document.querySelector('#year');
-const reviewsGrid = document.querySelector('#reviewsGrid');
-const ratingValue = document.querySelector('#ratingValue');
-const reviewCount = document.querySelector('#reviewCount');
+const reviewGrid = document.querySelector('#reviewGrid');
+const caseGrid = document.querySelector('#caseGrid');
+const heroRating = document.querySelector('#heroRating');
+const heroReviewCount = document.querySelector('#heroReviewCount');
 let deferredInstallPrompt = null;
 
 if (year) year.textContent = new Date().getFullYear();
@@ -14,46 +15,75 @@ const escapeHtml = (value = '') => String(value)
   .replaceAll('"', '&quot;')
   .replaceAll("'", '&#039;');
 
-async function loadReviews() {
-  if (!reviewsGrid) return;
-  try {
-    const response = await fetch('./data/reviews.json', { cache: 'no-store' });
-    if (!response.ok) throw new Error(`Review data failed: ${response.status}`);
-    const data = await response.json();
+async function getJson(path) {
+  const response = await fetch(path, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`${path} failed: ${response.status}`);
+  return response.json();
+}
 
+async function loadReviews() {
+  if (!reviewGrid) return;
+  try {
+    const data = await getJson('./data/reviews.json');
     if (data.business) {
-      if (ratingValue) ratingValue.textContent = data.business.rating ?? '—';
-      if (reviewCount) reviewCount.textContent = `${data.business.review_count ?? 0} Google reviews`;
+      if (heroRating) heroRating.textContent = data.business.rating ?? '—';
+      if (heroReviewCount) heroReviewCount.textContent = data.business.review_count ?? 0;
     }
 
     const reviews = Array.isArray(data.reviews) ? data.reviews : [];
     if (!reviews.length) {
-      reviewsGrid.innerHTML = '<article class="review-card"><p class="review-quote">Verified customer reviews will appear here as they are added to the repository.</p></article>';
+      reviewGrid.innerHTML = '<article class="review-card"><p class="review-summary">Verified customer reviews will appear here as they are added.</p></article>';
       return;
     }
 
-    reviewsGrid.innerHTML = reviews.map((review) => {
+    reviewGrid.innerHTML = reviews.map((review) => {
       const stars = '★'.repeat(Math.max(1, Math.min(5, Number(review.rating) || 5)));
-      const body = review.quote || review.summary || 'Verified customer feedback.';
-      const tags = (review.service_tags || []).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('');
-      return `
-        <article class="review-card">
-          <div class="review-stars" aria-label="${escapeHtml(review.rating)} out of 5 stars">${stars}</div>
-          <p class="review-quote">“${escapeHtml(body)}”</p>
-          <div class="review-meta">
-            <strong>${escapeHtml(review.reviewer || 'Customer')}</strong><br />
-            ${escapeHtml(review.source || 'Customer review')}
-            ${tags ? `<div class="review-tags">${tags}</div>` : ''}
-          </div>
-        </article>`;
+      const tags = (review.service_tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('');
+      const content = review.quote
+        ? `<blockquote>“${escapeHtml(review.quote)}”</blockquote>`
+        : `<p class="review-summary">${escapeHtml(review.summary || 'Verified customer feedback.')}</p>`;
+
+      return `<article class="review-card">
+        <div class="review-source"><span>${escapeHtml(review.source || 'Customer review')}</span><span class="stars" aria-label="${escapeHtml(review.rating)} out of 5 stars">${stars}</span></div>
+        ${content}
+        <div class="review-meta"><strong>${escapeHtml(review.reviewer || 'Customer')}</strong><div class="review-tags">${tags}</div></div>
+      </article>`;
     }).join('');
   } catch (error) {
     console.warn(error);
-    reviewsGrid.innerHTML = '<article class="review-card"><p class="review-quote">Review data is temporarily unavailable.</p></article>';
+    reviewGrid.innerHTML = '<article class="review-card"><p class="review-summary">Review data is temporarily unavailable.</p></article>';
+  }
+}
+
+async function loadCases() {
+  if (!caseGrid) return;
+  try {
+    const data = await getJson('./data/cases.json');
+    const cases = Array.isArray(data.cases) ? data.cases : [];
+    if (!cases.length) {
+      caseGrid.innerHTML = '<article class="case-card loading-card"><p>No client result sets have been published yet.</p></article>';
+      return;
+    }
+
+    caseGrid.innerHTML = cases.map((item) => {
+      const hasImages = Boolean(item.before_image && item.after_image && item.client_consent);
+      const media = hasImages
+        ? `<div class="comparison-placeholder"><div style="background-image:url('${escapeHtml(item.before_image)}');background-size:cover;background-position:center"><small>BEFORE</small></div><div style="background-image:url('${escapeHtml(item.after_image)}');background-size:cover;background-position:center"><small>AFTER</small></div></div>`
+        : '<div class="comparison-placeholder"><div><small>BEFORE</small>PHOTO</div><div><small>AFTER</small>PHOTO</div></div>';
+
+      return `<article class="case-card">
+        ${media}
+        <div class="case-copy"><h3>${escapeHtml(item.title || 'Client result')}</h3><p>${escapeHtml(item.caption || '')}</p><span class="status-pill">${hasImages ? 'Published client result' : 'Awaiting consented media'}</span></div>
+      </article>`;
+    }).join('');
+  } catch (error) {
+    console.warn(error);
+    caseGrid.innerHTML = '<article class="case-card loading-card"><p>Result data is temporarily unavailable.</p></article>';
   }
 }
 
 loadReviews();
+loadCases();
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
