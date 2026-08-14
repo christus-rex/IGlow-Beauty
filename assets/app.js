@@ -11,14 +11,12 @@ const serviceFilters = document.querySelector('#serviceFilters');
 const filterSummary = document.querySelector('#filterSummary');
 const reviewResultCount = document.querySelector('#reviewResultCount');
 const transformationResultCount = document.querySelector('#transformationResultCount');
+const proofFinder = document.querySelector('#proofFinder');
 
 let deferredInstallPrompt = null;
 let reviewArchive = [];
 let transformationArchive = [];
-let activeFilter = 'all';
 let searchTerm = '';
-
-if (year) year.textContent = new Date().getFullYear();
 
 const escapeHtml = (value = '') => String(value)
   .replaceAll('&', '&amp;')
@@ -30,6 +28,11 @@ const escapeHtml = (value = '') => String(value)
 const normalize = (value = '') => String(value).trim().toLowerCase();
 const safeDomId = (value = '') => String(value).replace(/[^a-zA-Z0-9_-]/g, '-');
 const titleCase = (value = '') => String(value).replace(/[-_]+/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+const initialService = normalize(new URLSearchParams(window.location.search).get('service') || 'all');
+let activeFilter = initialService || 'all';
+
+if (year) year.textContent = new Date().getFullYear();
 
 async function getJson(path) {
   const response = await fetch(path, { cache: 'no-store' });
@@ -81,11 +84,39 @@ function matchesTransformation(item) {
   return filterMatches && searchMatches;
 }
 
+function syncFilterUrl() {
+  const url = new URL(window.location.href);
+  if (activeFilter === 'all') url.searchParams.delete('service');
+  else url.searchParams.set('service', activeFilter);
+  window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
+function syncQuickFilterState() {
+  document.querySelectorAll('[data-service-filter]').forEach((button) => {
+    const selected = normalize(button.dataset.serviceFilter) === activeFilter;
+    button.setAttribute('aria-pressed', String(selected));
+    button.classList.toggle('is-active', selected);
+  });
+}
+
+function setActiveFilter(filter, { scroll = false, syncUrl = true } = {}) {
+  activeFilter = normalize(filter || 'all') || 'all';
+  if (syncUrl) syncFilterUrl();
+  renderArchive();
+  if (scroll && proofFinder) {
+    proofFinder.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+  }
+}
+
 function buildFilterChips() {
   if (!serviceFilters) return;
   const tags = new Set();
   reviewArchive.forEach((review) => reviewTags(review).forEach((tag) => tags.add(tag)));
   transformationArchive.forEach((item) => transformationTags(item).forEach((tag) => tags.add(tag)));
+  document.querySelectorAll('[data-service-filter]').forEach((button) => {
+    const tag = normalize(button.dataset.serviceFilter);
+    if (tag) tags.add(tag);
+  });
 
   const chips = ['all', ...Array.from(tags).sort((a, b) => a.localeCompare(b))];
   serviceFilters.innerHTML = chips.map((tag) => {
@@ -135,6 +166,20 @@ function relatedReviewLinks(item) {
   return `<p class="related-proof"><strong>Related testimonial:</strong> ${links}</p>`;
 }
 
+function comparisonMarkup(item) {
+  const title = item.title || 'Client result';
+  const beforeAlt = item.before_alt || `Before ${title}`;
+  const afterAlt = item.after_alt || `After ${title}`;
+  return `<div class="comparison-slider" data-comparison style="--split:50%">
+    <img class="comparison-image comparison-before" src="${escapeHtml(item.before_image)}" alt="${escapeHtml(beforeAlt)}" loading="lazy" decoding="async" />
+    <img class="comparison-image comparison-after" src="${escapeHtml(item.after_image)}" alt="${escapeHtml(afterAlt)}" loading="lazy" decoding="async" />
+    <span class="comparison-label comparison-label-before">Before</span>
+    <span class="comparison-label comparison-label-after">After</span>
+    <span class="comparison-handle" aria-hidden="true"><span>↔</span></span>
+    <input class="comparison-range" type="range" min="0" max="100" value="50" aria-label="Compare before and after for ${escapeHtml(title)}" />
+  </div>`;
+}
+
 function renderTransformations() {
   if (!caseGrid) return;
   const publishable = transformationArchive.filter((item) => item.consent_confirmed === true && item.before_image && item.after_image);
@@ -142,9 +187,9 @@ function renderTransformations() {
   if (transformationResultCount) transformationResultCount.textContent = visibleItems.length;
 
   if (!publishable.length && activeFilter === 'all' && !searchTerm) {
-    caseGrid.innerHTML = `<article class="case-card">
+    caseGrid.innerHTML = `<article class="case-card comparison-ready-card">
       <div class="comparison-placeholder"><div><small>BEFORE</small>PHOTO</div><div><small>AFTER</small>PHOTO</div></div>
-      <div class="case-copy"><h3>First client comparison coming next</h3><p>The repository is ready for consented before-and-after media, service details, and a client caption.</p><span class="status-pill">Awaiting real client media</span></div>
+      <div class="case-copy"><h3>Interactive comparison is ready</h3><p>The first consented client pair will automatically appear here with a draggable before-and-after control, service tags, caption, and linked testimonial.</p><span class="status-pill">Awaiting verified client pair</span></div>
     </article>`;
     return;
   }
@@ -157,10 +202,7 @@ function renderTransformations() {
   caseGrid.innerHTML = visibleItems.map((item) => {
     const tags = transformationTags(item).map((tag) => `<span>${escapeHtml(titleCase(tag))}</span>`).join('');
     return `<article class="case-card">
-      <div class="comparison-placeholder">
-        <div style="background-image:url('${escapeHtml(item.before_image)}');background-size:cover;background-position:center"><small>BEFORE</small></div>
-        <div style="background-image:url('${escapeHtml(item.after_image)}');background-size:cover;background-position:center"><small>AFTER</small></div>
-      </div>
+      ${comparisonMarkup(item)}
       <div class="case-copy">
         <div class="case-tags">${tags}</div>
         <h3>${escapeHtml(item.title || 'Client result')}</h3>
@@ -187,6 +229,7 @@ function renderArchive() {
   renderReviews();
   renderTransformations();
   updateFilterSummary();
+  syncQuickFilterState();
 }
 
 async function loadArchive() {
@@ -218,13 +261,25 @@ async function loadArchive() {
 serviceFilters?.addEventListener('click', (event) => {
   const button = event.target.closest('[data-filter]');
   if (!button) return;
-  activeFilter = normalize(button.dataset.filter || 'all');
-  renderArchive();
+  setActiveFilter(button.dataset.filter || 'all');
+});
+
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-service-filter]');
+  if (!button) return;
+  setActiveFilter(button.dataset.serviceFilter || 'all', { scroll: true });
 });
 
 proofSearch?.addEventListener('input', (event) => {
   searchTerm = normalize(event.target.value);
   renderArchive();
+});
+
+caseGrid?.addEventListener('input', (event) => {
+  const range = event.target.closest('.comparison-range');
+  if (!range) return;
+  const slider = range.closest('[data-comparison]');
+  slider?.style.setProperty('--split', `${range.value}%`);
 });
 
 loadArchive();
