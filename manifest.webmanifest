@@ -1,0 +1,19 @@
+{
+  "name": "iGlow Beauty",
+  "short_name": "iGlow",
+  "description": "A personalized beauty and glow experience.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffafd",
+  "theme_color": "#f7eef5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
