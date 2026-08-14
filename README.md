@@ -1,23 +1,49 @@
 # iGlow Beauty
 
-Canonical source repository for the **iGlow Beauty** project.
+Canonical source repository for **I Glow Beauty Bar** customer proof and portfolio content.
 
-## Purpose
+## Current purpose
 
-iGlow Beauty is being established as a mobile-first beauty web experience that can run as a standard website and as an installable Progressive Web App (PWA).
+For now, this project is intentionally focused on being a trusted repository for:
 
-## Foundation
+- Customer reviews
+- Testimonials
+- Before-and-after work comparisons
+- Source provenance for imported reviews
+- Consent-aware client result photography
 
-- Responsive, mobile-first web interface
+The public experience is designed to make the salon's work easy to evaluate rather than function as a generic brochure.
+
+## Seed source
+
+The initial source is the user-provided Google Business Profile share for I Glow Beauty Bar in Fredericksburg, Virginia. Imported review data should remain traceable to its original source.
+
+## Data model
+
+```text
+data/
+├── reviews.json          # Business rating snapshot + sourced testimonials
+├── transformations.json  # Consented before/after result sets
+└── sources.json          # Provenance registry for imported material
+```
+
+### Review standard
+
+Each review can retain source, rating, reviewer label, quote or summary, service tags, verification status, and featured status.
+
+### Before/after standard
+
+Only publish transformation records when the actual before/after media is available and client consent has been confirmed. Whenever practical, keep lighting, framing, camera distance, and editing consistent so comparisons remain credible.
+
+## Web / app foundation
+
+- Responsive mobile-first interface
 - Installable PWA manifest
 - Offline-capable service worker
 - GitHub Pages deployment workflow
-- Framework-free starter architecture for fast iteration
-- Ready to evolve into a larger React/TypeScript or native app architecture if needed
+- Framework-free architecture for fast iteration
 
 ## Local development
-
-Because the starter is static, any local web server can serve it. For example:
 
 ```bash
 python3 -m http.server 8080
@@ -25,13 +51,9 @@ python3 -m http.server 8080
 
 Then open `http://localhost:8080`.
 
-> Service workers require HTTPS in production (localhost is allowed for development).
-
 ## Deployment
 
-A GitHub Pages workflow is included in `.github/workflows/pages.yml`.
-
-After the first commit is available, open **Repository Settings → Pages** and set the source to **GitHub Actions** if Pages is not already enabled for the repository/account.
+A GitHub Pages workflow is included in `.github/workflows/pages.yml`. In repository settings, Pages should use **GitHub Actions** as its deployment source.
 
 ## Structure
 
@@ -44,9 +66,13 @@ After the first commit is available, open **Repository Settings → Pages** and 
 │   ├── app.js
 │   ├── styles.css
 │   └── icon.svg
+├── data/
+│   ├── reviews.json
+│   ├── transformations.json
+│   └── sources.json
 └── .github/workflows/pages.yml
 ```
 
-## Project status
+## Status
 
-Initial web/PWA foundation established August 14, 2026.
+Review/testimonial repository foundation established August 14, 2026. The first Google-derived business snapshot and testimonial seeds are present. The transformation gallery is intentionally waiting for real, consented client media.
