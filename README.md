@@ -65,6 +65,7 @@ A GitHub Pages workflow is included in `.github/workflows/pages.yml`. In reposit
 ├── assets/
 │   ├── app.js
 │   ├── styles.css
+│   ├── proof.css
 │   └── icon.svg
 ├── data/
 │   ├── reviews.json
@@ -76,3 +77,5 @@ A GitHub Pages workflow is included in `.github/workflows/pages.yml`. In reposit
 ## Status
 
 Review/testimonial repository foundation established August 14, 2026. The first Google-derived business snapshot and testimonial seeds are present. The transformation gallery is intentionally waiting for real, consented client media.
+
+Production publish triggered from `main` on August 14, 2026.
