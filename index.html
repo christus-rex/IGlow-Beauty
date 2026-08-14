@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7eef5" />
+  <meta name="description" content="iGlow Beauty — a personalized beauty and glow experience." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="iGlow Beauty" />
+
+  <title>iGlow Beauty</title>
+
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="iGlow Beauty home">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>iGlow Beauty</span>
+      </a>
+      <button id="installButton" class="button button-secondary" type="button" hidden>Install App</button>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR BEAUTY • YOUR GLOW</p>
+          <h1 id="hero-title">Beauty that feels personal.</h1>
+          <p class="hero-text">
+            A mobile-first space for routines, discoveries, beauty guidance, and the rituals that help you glow with intention.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#experience">Explore iGlow</a>
+            <a class="button button-ghost" href="#about">About the app</a>
+          </div>
+        </div>
+
+        <div class="glow-orb" aria-hidden="true">
+          <div class="orb-core">iG</div>
+        </div>
+      </section>
+
+      <section id="experience" class="section" aria-labelledby="experience-title">
+        <div class="section-heading">
+          <p class="eyebrow">THE FOUNDATION</p>
+          <h2 id="experience-title">Built for web and app experiences.</h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="card">
+            <span class="card-number">01</span>
+            <h3>My Glow</h3>
+            <p>A future home for personalized routines, progress, favorites, and beauty goals.</p>
+          </article>
+
+          <article class="card">
+            <span class="card-number">02</span>
+            <h3>Discover</h3>
+            <p>Curated beauty content, products, techniques, inspiration, and guided discovery.</p>
+          </article>
+
+          <article class="card">
+            <span class="card-number">03</span>
+            <h3>Rituals</h3>
+            <p>Save repeatable skin, hair, makeup, wellness, and self-care routines in one place.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="section statement">
+        <div>
+          <p class="eyebrow">PWA READY</p>
+          <h2>One codebase. Website + installable app.</h2>
+        </div>
+        <p>
+          This starter is responsive, installable, offline-aware, and ready to grow into the full iGlow Beauty product experience.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> iGlow Beauty</span>
+      <span>Web • PWA • Mobile-first</span>
+    </footer>
+  </div>
+
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>
