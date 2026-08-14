@@ -78,4 +78,4 @@ A GitHub Pages workflow is included in `.github/workflows/pages.yml`. In reposit
 
 Review/testimonial repository foundation established August 14, 2026. The first Google-derived business snapshot and testimonial seeds are present. The transformation gallery is intentionally waiting for real, consented client media.
 
-Production publish triggered from `main` on August 14, 2026.
+Production publish retried from `main` on August 14, 2026.
