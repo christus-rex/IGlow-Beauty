@@ -1,10 +1,11 @@
-const CACHE_NAME = 'iglow-beauty-v4';
+const CACHE_NAME = 'iglow-beauty-v5';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './assets/styles.css',
   './assets/proof.css',
+  './assets/theme.css',
   './assets/app.js',
   './assets/icon.svg',
   './data/reviews.json',
