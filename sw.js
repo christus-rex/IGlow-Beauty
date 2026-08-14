@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v5';
+const CACHE_NAME = 'iglow-beauty-v6';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const APP_SHELL = [
   './assets/theme.css',
   './assets/app.js',
   './assets/icon.svg',
+  './assets/iglow-logo.svg',
   './data/reviews.json',
   './data/transformations.json',
   './data/sources.json'
