@@ -1,0 +1,14 @@
+{
+  "business": "I Glow Beauty Bar",
+  "purpose": "Customer proof repository for reviews, testimonials, and before/after work comparisons.",
+  "sources": [
+    {
+      "id": "google-share-seed-001",
+      "type": "google_business_share",
+      "label": "I Glow Beauty Bar — Google shared listing",
+      "url": "https://share.google/uCmSStOkgCjMG71da",
+      "status": "seeded",
+      "notes": "Authoritative user-provided source. Review details should only be imported when they can be verified from the source or supplied directly by the business owner."
+    }
+  ]
+}
