@@ -1,0 +1,82 @@
+:root{
+  --bg:#fffdfd;
+  --surface:#ffffff;
+  --text:#2b2529;
+  --muted:#77727a;
+  --line:rgba(155,150,158,.28);
+  --accent:#dfa0bb;
+  --accent-dark:#a56a82;
+  --soft:#f9e8ef;
+  --gold:#c8a24a;
+  --silver:#c7cbd1;
+  --silver-light:#eef0f3;
+  --white:#ffffff;
+  --shadow:0 24px 80px rgba(120,105,112,.14);
+}
+
+html{background:var(--bg)}
+body{
+  background:
+    radial-gradient(circle at 82% 7%,rgba(223,160,187,.28),transparent 28rem),
+    radial-gradient(circle at 9% 38%,rgba(200,162,74,.13),transparent 27rem),
+    radial-gradient(circle at 88% 72%,rgba(199,203,209,.22),transparent 28rem),
+    linear-gradient(180deg,#fffdfd 0%,#ffffff 48%,#f7f7f8 100%);
+}
+
+.topbar{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,253,253,.78));
+  border-bottom:1px solid rgba(199,203,209,.34);
+}
+
+.brand-mark,
+.proof-monogram{
+  color:#fff;
+  background:linear-gradient(145deg,#e6a9c2 0%,#c8a24a 52%,#c7cbd1 100%);
+  box-shadow:0 16px 34px rgba(200,162,74,.2),0 8px 22px rgba(223,160,187,.18);
+}
+
+.button-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#dfa0bb 0%,#c8a24a 58%,#bfc4ca 100%);
+  box-shadow:0 14px 34px rgba(200,162,74,.22);
+}
+
+.button-secondary,.button-ghost,.trust-strip span{
+  background:rgba(255,255,255,.82);
+  border-color:rgba(199,203,209,.42);
+}
+
+.proof-card,
+.contact-band{
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(249,232,239,.78) 58%,rgba(238,240,243,.78));
+}
+
+.proof-card:after{
+  background:linear-gradient(135deg,rgba(223,160,187,.12),rgba(200,162,74,.1),rgba(199,203,209,.12));
+}
+
+.review-card,
+.case-card,
+.standards-grid article{
+  border-color:rgba(199,203,209,.42);
+  background:rgba(255,255,255,.88);
+  box-shadow:0 16px 42px rgba(121,113,119,.07);
+}
+
+.comparison-placeholder{
+  background:linear-gradient(135deg,#f9e8ef 0%,#ffffff 50%,#eef0f3 100%);
+}
+
+.review-tags span,.case-tags span,.status-pill{
+  background:linear-gradient(135deg,rgba(249,232,239,.96),rgba(238,240,243,.96));
+  color:#9a6279;
+}
+
+.stars{color:#c8a24a}
+.eyebrow,.proof-label,.standards-grid article>span{color:#a56a82}
+
+::selection{background:rgba(223,160,187,.35);color:#2b2529}
+
+@media (prefers-color-scheme:dark){
+  :root{color-scheme:light}
+}
