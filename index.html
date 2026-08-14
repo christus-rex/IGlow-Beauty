@@ -31,7 +31,7 @@
             <div><div class="stars" aria-hidden="true">★★★★★</div><p><strong id="heroReviewCount">51</strong> Google reviews</p></div>
           </div>
           <div class="hero-actions">
-            <a class="button button-primary" href="#reviews">Read reviews</a>
+            <a class="button button-primary" href="#proofFinder">Explore client proof</a>
             <a class="button button-ghost" href="https://share.google/uCmSStOkgCjMG71da" target="_blank" rel="noopener noreferrer">View Google profile ↗</a>
           </div>
         </div>
@@ -41,8 +41,8 @@
           <p class="proof-label">CUSTOMER PROOF ARCHIVE</p>
           <h2>Beauty work you can evaluate for yourself.</h2>
           <dl class="profile-facts">
-            <div><dt>Rating</dt><dd>4.9 / 5</dd></div>
-            <div><dt>Reviews</dt><dd>51</dd></div>
+            <div><dt>Rating</dt><dd id="cardRating">4.9 / 5</dd></div>
+            <div><dt>Reviews</dt><dd id="cardReviewCount">51</dd></div>
             <div><dt>Location</dt><dd>1940 William St</dd></div>
           </dl>
         </aside>
@@ -50,10 +50,28 @@
 
       <section class="trust-strip" aria-label="Business specialties"><span>Lashes</span><span>Facials</span><span>Beauty Salon</span><span>Medical Spa</span><span>Personalized Care</span></section>
 
+      <section id="proofFinder" class="proof-finder" aria-labelledby="finder-title">
+        <div class="finder-copy">
+          <p class="eyebrow">FIND THE PROOF</p>
+          <h2 id="finder-title">Browse by service or experience.</h2>
+          <p>Filter the entire archive at once. Reviews and client transformations stay connected through shared service tags and optional testimonial links.</p>
+        </div>
+        <div class="finder-controls">
+          <label class="search-field" for="proofSearch">
+            <span>Search</span>
+            <input id="proofSearch" type="search" placeholder="Try lashes, facials, confidence…" autocomplete="off" />
+          </label>
+          <div id="serviceFilters" class="filter-chips" aria-label="Filter proof by service">
+            <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">All proof</button>
+          </div>
+          <p id="filterSummary" class="filter-summary" aria-live="polite">Showing the complete proof archive.</p>
+        </div>
+      </section>
+
       <section id="reviews" class="section" aria-labelledby="reviews-title">
         <div class="section-heading split-heading">
           <div><p class="eyebrow">CUSTOMER VOICES</p><h2 id="reviews-title">What clients are saying.</h2></div>
-          <p class="section-intro">Seed reviews are sourced from the business's Google profile. This repository is designed to grow as additional verified testimonials are collected.</p>
+          <div class="section-side"><p class="section-intro">Seed reviews are sourced from the business's Google profile. This repository is designed to grow as additional verified testimonials are collected.</p><p class="result-count"><strong id="reviewResultCount">0</strong> matching testimonials</p></div>
         </div>
         <div id="reviewGrid" class="review-grid" aria-live="polite"><article class="review-card loading-card"><p>Loading review archive…</p></article></div>
       </section>
@@ -61,7 +79,7 @@
       <section id="results" class="section results-section" aria-labelledby="results-title">
         <div class="section-heading split-heading">
           <div><p class="eyebrow">VISIBLE RESULTS</p><h2 id="results-title">Before & after.</h2></div>
-          <p class="section-intro">This gallery only publishes real client comparisons when the source images and permission to display them are documented.</p>
+          <div class="section-side"><p class="section-intro">This gallery only publishes real client comparisons when the source images and permission to display them are documented.</p><p class="result-count"><strong id="transformationResultCount">0</strong> matching transformations</p></div>
         </div>
         <div id="caseGrid" class="case-grid" aria-live="polite"><article class="case-card loading-card"><p>Loading result archive…</p></article></div>
       </section>
@@ -71,7 +89,8 @@
         <div class="standards-grid">
           <article><span>01</span><h3>Source every review</h3><p>Testimonials retain their source so visitors can distinguish externally verified feedback from direct submissions.</p></article>
           <article><span>02</span><h3>Use real client media</h3><p>No synthetic “results.” Before-and-after work comes from actual services with documented permission to publish.</p></article>
-          <article><span>03</span><h3>Compare fairly</h3><p>Keep lighting, framing, camera distance, and editing as consistent as possible so visual comparisons stay credible.</p></article>
+          <article><span>03</span><h3>Connect the evidence</h3><p>A transformation can reference related review IDs, letting one client result connect directly to the testimonial that supports it.</p></article>
+          <article><span>04</span><h3>Compare fairly</h3><p>Keep lighting, framing, camera distance, and editing as consistent as possible so visual comparisons stay credible.</p></article>
         </div>
       </section>
 
