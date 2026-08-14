@@ -1,0 +1,15 @@
+{
+  "transformations": [],
+  "schema": {
+    "id": "string",
+    "title": "string",
+    "service": "string",
+    "customer_label": "string",
+    "before_image": "string path or URL",
+    "after_image": "string path or URL",
+    "caption": "string",
+    "date": "YYYY-MM-DD or null",
+    "consent_confirmed": "boolean",
+    "featured": "boolean"
+  }
+}
