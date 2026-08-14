@@ -21,7 +21,10 @@
         <img class="brand-logo" src="./assets/iglow-logo.svg" width="980" height="300" alt="" />
       </a>
       <nav class="nav" aria-label="Primary navigation"><a href="#reviews">Reviews</a><a href="#results">Before & After</a><a href="#standards">Trust</a></nav>
-      <button id="installButton" class="button button-secondary install-button" type="button" hidden>Install</button>
+      <div class="topbar-actions">
+        <a class="button button-primary topbar-book" href="https://www.vagaro.com/iglowbeautybar" target="_blank" rel="noopener noreferrer">Book</a>
+        <button id="installButton" class="button button-secondary install-button" type="button" hidden>Install</button>
+      </div>
     </header>
 
     <main id="home">
@@ -35,9 +38,10 @@
             <div><div class="stars" aria-hidden="true">★★★★★</div><p><strong id="heroReviewCount">51</strong> Google reviews</p></div>
           </div>
           <div class="hero-actions">
-            <a class="button button-primary" href="#proofFinder">Explore client proof</a>
-            <a class="button button-ghost" href="https://share.google/jKOWwjnHrfP1FBAAs" target="_blank" rel="noopener noreferrer">View Google profile ↗</a>
+            <a class="button button-primary" href="https://www.vagaro.com/iglowbeautybar" target="_blank" rel="noopener noreferrer">Book appointment</a>
+            <a class="button button-ghost" href="#proofFinder">Explore client proof</a>
           </div>
+          <a class="source-link" href="https://share.google/jKOWwjnHrfP1FBAAs" target="_blank" rel="noopener noreferrer">View primary Google profile ↗</a>
         </div>
 
         <aside class="proof-card" aria-label="I Glow Beauty Bar profile summary">
@@ -55,7 +59,13 @@
         </aside>
       </section>
 
-      <section class="trust-strip" aria-label="Business specialties"><span>Lashes</span><span>Facials</span><span>Beauty Salon</span><span>Medical Spa</span><span>Personalized Care</span></section>
+      <section class="trust-strip service-shortcuts" aria-label="Filter proof by service">
+        <button type="button" data-service-filter="hair" aria-pressed="false">Hair</button>
+        <button type="button" data-service-filter="lashes" aria-pressed="false">Lashes</button>
+        <button type="button" data-service-filter="permanent makeup" aria-pressed="false">Permanent Makeup</button>
+        <button type="button" data-service-filter="makeup" aria-pressed="false">Makeup</button>
+        <button type="button" data-service-filter="facials" aria-pressed="false">Facials</button>
+      </section>
 
       <section id="proofFinder" class="proof-finder" aria-labelledby="finder-title">
         <div class="finder-copy">
@@ -86,7 +96,7 @@
       <section id="results" class="section results-section" aria-labelledby="results-title">
         <div class="section-heading split-heading">
           <div><p class="eyebrow">VISIBLE RESULTS</p><h2 id="results-title">Before & after.</h2></div>
-          <div class="section-side"><p class="section-intro">This gallery only publishes real client comparisons when the source images and permission to display them are documented.</p><p class="result-count"><strong id="transformationResultCount">0</strong> matching transformations</p></div>
+          <div class="section-side"><p class="section-intro">Published comparisons use consented client media. Drag the comparison control to inspect each transformation without hiding either source image.</p><p class="result-count"><strong id="transformationResultCount">0</strong> matching transformations</p></div>
         </div>
         <div id="caseGrid" class="case-grid" aria-live="polite"><article class="case-card loading-card"><p>Loading result archive…</p></article></div>
       </section>
@@ -109,6 +119,13 @@
 
     <footer class="footer"><span>© <span id="year"></span> I Glow Beauty Bar</span><span>Reviews • Testimonials • Client Results</span></footer>
   </div>
+
+  <nav class="mobile-action-bar" aria-label="Quick booking actions">
+    <a href="https://www.vagaro.com/iglowbeautybar" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">✦</span>Book</a>
+    <a href="tel:+15403707167"><span aria-hidden="true">☎</span>Call</a>
+    <a href="https://share.google/jKOWwjnHrfP1FBAAs" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">★</span>Reviews</a>
+  </nav>
+
   <script src="./assets/app.js" defer></script>
 </body>
 </html>
