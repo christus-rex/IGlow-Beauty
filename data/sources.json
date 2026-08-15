@@ -1,7 +1,8 @@
 {
   "business": "I Glow Beauty Bar",
-  "purpose": "Customer proof repository for reviews, testimonials, before/after work comparisons, studio presentation, verified staff profiles, and verified service catalog data.",
+  "purpose": "Customer proof repository for reviews, testimonials, before/after work comparisons, studio presentation, verified staff profiles, verified service catalog data, and verified company/about information.",
   "primary_seed_source_id": "google-share-seed-002",
+  "primary_about_source_id": "vagaro-about-seed-001",
   "primary_staff_source_id": "vagaro-staff-seed-001",
   "primary_service_source_id": "vagaro-services-seed-001",
   "sources": [
@@ -13,6 +14,15 @@
       "status": "primary_seed",
       "priority": 1,
       "notes": "Primary authoritative user-provided seed source for review, testimonial, and customer proof collection. Import details only when they can be verified from this source or supplied directly by the business owner."
+    },
+    {
+      "id": "vagaro-about-seed-001",
+      "type": "vagaro_business_profile",
+      "label": "I Glow Beauty Bar — Primary company/about profile",
+      "url": "https://www.vagaro.com/iglowbeautybar",
+      "status": "primary_about_seed",
+      "priority": 1,
+      "notes": "Primary authoritative user-provided source for company identity, About/business overview, location context, booking destination, and business-level profile information. Preserve wording from the source when exact About copy can be verified; do not invent company claims that are not present on Vagaro or supplied directly by the business owner."
     },
     {
       "id": "vagaro-staff-seed-001",
