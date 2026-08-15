@@ -45,28 +45,22 @@ function injectMeetIGlow() {
     <div class="meet-iglow-copy">
       <span class="media-kicker">MEET IGLOW</span>
       <h3>Beauty, confidence &amp; care—under one roof.</h3>
-      <p>Step inside I Glow Beauty Bar and meet the professionals behind the experience. The studio combines polished, welcoming spaces with a team focused on personal attention, technical skill, and helping every client feel confident.</p>
+      <p>Meet the professionals behind the I Glow Beauty Bar experience. The team is presented separately from client proof so staff information stays clear, professional, and source-grounded.</p>
       <div class="meet-iglow-values" aria-label="I Glow Beauty Bar highlights">
         <span>Passionate professionals</span>
         <span>Personalized care</span>
-        <span>Welcoming studio</span>
+        <span>Client-focused experience</span>
       </div>
     </div>
-    <div class="meet-iglow-gallery" aria-label="I Glow Beauty Bar establishment and team">
+    <div class="meet-iglow-gallery" aria-label="I Glow Beauty Bar team">
       <figure class="meet-iglow-team">
         <img src="https://iglowbeautybar.com/wp-content/uploads/2024/12/staff-iglow-beauty-bar-1024x1024.jpg" width="1024" height="1024" loading="lazy" decoding="async" alt="I Glow Beauty Bar team" />
         <figcaption><strong>Our Team</strong><span>The professionals behind the glow.</span></figcaption>
       </figure>
-      <figure>
-        <img src="./assets/iglow-studio-preview.webp" width="200" height="356" loading="lazy" decoding="async" alt="Inside I Glow Beauty Bar studio" />
-        <figcaption><strong>Our Space</strong><span>A polished, welcoming beauty environment.</span></figcaption>
-      </figure>
-      <figure>
-        <img src="./assets/iglow-grand-opening-preview.webp" width="200" height="356" loading="lazy" decoding="async" alt="I Glow Beauty Bar grand opening and team milestone" />
-        <figcaption><strong>Our Story</strong><span>Built through shared vision and beauty expertise.</span></figcaption>
-      </figure>
     </div>`;
 
+  const teamImage = feature.querySelector('img');
+  teamImage?.addEventListener('error', () => feature.remove(), { once: true });
   mediaGrid.before(feature);
 }
 
@@ -122,6 +116,35 @@ function matchesTransformation(item) {
   return filterMatches && searchMatches;
 }
 
+function publishableTransformations() {
+  return transformationArchive.filter((item) => item.consent_confirmed === true && item.before_image && item.after_image);
+}
+
+function syncSectionVisibility() {
+  const reviewsSection = document.querySelector('#reviews');
+  const resultsSection = document.querySelector('#results');
+  const quickFilters = document.querySelector('.service-shortcuts');
+  const hasReviews = reviewArchive.length > 0;
+  const hasResults = publishableTransformations().length > 0;
+
+  if (reviewsSection) reviewsSection.hidden = !hasReviews;
+  if (resultsSection) resultsSection.hidden = !hasResults;
+  if (proofFinder) proofFinder.hidden = !(hasReviews || hasResults);
+  if (quickFilters) quickFilters.hidden = !(hasReviews || hasResults);
+
+  document.querySelectorAll('.nav a[href^="#"]').forEach((link) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    link.hidden = !target || target.hidden;
+  });
+
+  document.querySelectorAll('section').forEach((section) => {
+    if (section.hidden) return;
+    const meaningfulText = section.textContent.replace(/\s+/g, '').length > 0;
+    const meaningfulMedia = section.querySelector('img,video,picture,svg,canvas,iframe,input,button,a');
+    if (!meaningfulText && !meaningfulMedia) section.remove();
+  });
+}
+
 function syncFilterUrl() {
   const url = new URL(window.location.href);
   if (activeFilter === 'all') url.searchParams.delete('service');
@@ -141,7 +164,7 @@ function setActiveFilter(filter, { scroll = false, syncUrl = true } = {}) {
   activeFilter = normalize(filter || 'all') || 'all';
   if (syncUrl) syncFilterUrl();
   renderArchive();
-  if (scroll && proofFinder) {
+  if (scroll && proofFinder && !proofFinder.hidden) {
     proofFinder.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
   }
 }
@@ -220,17 +243,8 @@ function comparisonMarkup(item) {
 
 function renderTransformations() {
   if (!caseGrid) return;
-  const publishable = transformationArchive.filter((item) => item.consent_confirmed === true && item.before_image && item.after_image);
-  const visibleItems = publishable.filter(matchesTransformation);
+  const visibleItems = publishableTransformations().filter(matchesTransformation);
   if (transformationResultCount) transformationResultCount.textContent = visibleItems.length;
-
-  if (!publishable.length && activeFilter === 'all' && !searchTerm) {
-    caseGrid.innerHTML = `<article class="case-card comparison-ready-card">
-      <div class="comparison-placeholder"><div><small>BEFORE</small>PHOTO</div><div><small>AFTER</small>PHOTO</div></div>
-      <div class="case-copy"><h3>Interactive comparison is ready</h3><p>The first consented client pair will automatically appear here with a draggable before-and-after control, service tags, caption, and linked testimonial.</p><span class="status-pill">Awaiting verified client pair</span></div>
-    </article>`;
-    return;
-  }
 
   if (!visibleItems.length) {
     caseGrid.innerHTML = '<article class="case-card loading-card"><p>No published before-and-after results match this filter yet.</p></article>';
@@ -268,6 +282,7 @@ function renderArchive() {
   renderTransformations();
   updateFilterSummary();
   syncQuickFilterState();
+  syncSectionVisibility();
 }
 
 async function loadArchive() {
@@ -291,8 +306,11 @@ async function loadArchive() {
     renderArchive();
   } catch (error) {
     console.warn(error);
-    if (reviewGrid) reviewGrid.innerHTML = '<article class="review-card loading-card"><p>Review data is temporarily unavailable.</p></article>';
-    if (caseGrid) caseGrid.innerHTML = '<article class="case-card loading-card"><p>Result data is temporarily unavailable.</p></article>';
+    document.querySelector('#reviews')?.setAttribute('hidden', '');
+    document.querySelector('#results')?.setAttribute('hidden', '');
+    proofFinder?.setAttribute('hidden', '');
+    document.querySelector('.service-shortcuts')?.setAttribute('hidden', '');
+    syncSectionVisibility();
   }
 }
 
