@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,60 +24,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Ensure BA-001 high-resolution assets
+      - name: Verify BA-001 high-resolution assets
         run: |
           set -euo pipefail
           python -m pip install --quiet Pillow
-          mkdir -p /tmp/iglow-masters
-
-          if [ ! -f assets/transformations/ba-001-before-hq.webp ] || [ ! -f assets/transformations/ba-001-after-hq.webp ]; then
-            curl --fail --location --retry 3 --retry-delay 1 \
-              --output /tmp/iglow-masters/ba-001-before.img \
-              "https://lh7-rt.googleusercontent.com/docsz/AD_4nXdsraj53yjYmUKEPFjUmCMgt12eZpL9xUaAqUJXudEJ4h4PVyOJ5AjmRrX2EcPTn_f89wGh_xHUdeCv1BG_8LupcnC4QjYSolczPei97R57z_q31ymlKKd1l7I_F8228xflKPXq1T2SDhghBu8o18wtMOIpnAODB2Osk8RNcIjW25kWAhoUPw=s2048?key=sJLMOTWYMLRBLsEsWs13cA"
-
-            curl --fail --location --retry 3 --retry-delay 1 \
-              --output /tmp/iglow-masters/ba-001-after.img \
-              "https://lh7-rt.googleusercontent.com/docsz/AD_4nXcUIHSrAgq8suEMfsNjt8d5HmQV-IVqaDXE_H7zW9GHMqPOWyCyvKsKWCKIBxXUpsaw8BMBFlfEeLjvEVIxaDJaNgEqoELpvA3t6cFDhZiU3UKDjudJtY6UuQHDBLV7yofc784cfwiCJSA_-21HLn8SedPtAGDMfVgI0x-i10z3StXt_gKMew=s2048?key=sJLMOTWYMLRBLsEsWs13cA"
-
-            python - <<'PY'
-          from pathlib import Path
-          from PIL import Image, ImageOps
-
-          expected = (1152, 1536)
-          pairs = [
-              (Path('/tmp/iglow-masters/ba-001-before.img'), Path('assets/transformations/ba-001-before-hq.webp')),
-              (Path('/tmp/iglow-masters/ba-001-after.img'), Path('assets/transformations/ba-001-after-hq.webp')),
-          ]
-          for source, target in pairs:
-              with Image.open(source) as image:
-                  image = ImageOps.exif_transpose(image).convert('RGB')
-                  if image.size != expected:
-                      raise SystemExit(f'{source.name}: expected {expected[0]}x{expected[1]}, got {image.size[0]}x{image.size[1]}; refusing low-resolution input.')
-                  image.save(target, 'WEBP', quality=96, method=6)
-          PY
-          fi
-
           python - <<'PY'
-          from PIL import Image
           from pathlib import Path
+          from PIL import Image
+
           expected = (1152, 1536)
-          for path in [Path('assets/transformations/ba-001-before-hq.webp'), Path('assets/transformations/ba-001-after-hq.webp')]:
+          paths = [
+              Path('assets/transformations/ba-001-before-hq.webp'),
+              Path('assets/transformations/ba-001-after-hq.webp'),
+          ]
+          for path in paths:
+              if not path.exists():
+                  raise SystemExit(f'Missing required high-resolution asset: {path}')
               with Image.open(path) as image:
                   if image.size != expected:
-                      raise SystemExit(f'{path}: expected {expected}, got {image.size}')
+                      raise SystemExit(f'{path}: expected {expected[0]}x{expected[1]}, got {image.size[0]}x{image.size[1]}')
                   print(f'{path}: verified {image.size[0]}x{image.size[1]}, {path.stat().st_size:,} bytes')
           PY
-
-      - name: Persist high-resolution assets
-        run: |
-          set -euo pipefail
-          if [ -n "$(git status --porcelain -- assets/transformations/ba-001-before-hq.webp assets/transformations/ba-001-after-hq.webp)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add assets/transformations/ba-001-before-hq.webp assets/transformations/ba-001-after-hq.webp
-            git commit -m "Store BA-001 high-resolution portfolio assets"
-            git push origin HEAD:main
-          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
