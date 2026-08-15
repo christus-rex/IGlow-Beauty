@@ -1,0 +1,19 @@
+{
+  "business": "I Glow Beauty Bar",
+  "source_id": "vagaro-about-seed-001",
+  "source_url": "https://www.vagaro.com/iglowbeautybar",
+  "source_label": "Vagaro business profile",
+  "status": "seeded_pending_verified_about_copy",
+  "verified_identity": {
+    "name": "IGlow Beauty Bar",
+    "location": "Fredericksburg, Virginia",
+    "booking_platform": "Vagaro"
+  },
+  "related_source_ids": {
+    "staff": "vagaro-staff-seed-001",
+    "services": "vagaro-services-seed-001"
+  },
+  "about_copy": null,
+  "verification_policy": "Use the main Vagaro business profile as the primary authority for company/about wording and business-level profile details. Preserve source wording when exact text can be retrieved. Do not infer founding history, ownership, credentials, awards, mission statements, or other company claims solely from photographs or marketing imagery.",
+  "notes": "The public Vagaro page confirms IGlow Beauty Bar in Fredericksburg, Virginia and exposes business navigation for services, classes, gift cards, memberships, products, reviews, and booking. The exact dynamic About text is not currently exposed in the page crawl, so it remains pending rather than being reconstructed from inference."
+}
