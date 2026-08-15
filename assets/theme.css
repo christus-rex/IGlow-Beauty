@@ -122,3 +122,22 @@ body{
 ::selection{background:rgba(201,178,124,.38);color:#343434}
 
 @media (prefers-color-scheme:dark){:root{color-scheme:light}}
+
+/* Primary logo sizing — preserves the supplied artwork without distortion. */
+body.brand-luxury .topbar{min-height:112px!important}
+body.brand-luxury .brand{width:220px!important;max-width:36vw!important}
+body.brand-luxury .brand-logo{display:block!important;width:220px!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:left center!important}
+body.brand-luxury .hero-brand-frame{padding:12px!important;background:#000!important}
+body.brand-luxury .hero-brand-art{display:block!important;width:100%!important;height:auto!important;max-height:300px!important;object-fit:contain!important;object-position:center!important}
+@media(max-width:900px){
+  body.brand-luxury .topbar{min-height:102px!important}
+  body.brand-luxury .brand{width:188px!important;max-width:48vw!important}
+  body.brand-luxury .brand-logo{width:188px!important}
+}
+@media(max-width:620px){
+  body.brand-luxury .topbar{min-height:92px!important}
+  body.brand-luxury .brand{width:152px!important;max-width:54vw!important}
+  body.brand-luxury .brand-logo{width:152px!important}
+  body.brand-luxury .hero-brand-frame{padding:8px!important}
+  body.brand-luxury .hero-brand-art{max-height:220px!important}
+}
