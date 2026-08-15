@@ -24,6 +24,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Prepare high-resolution comparison media
+        run: |
+          python -m pip install --quiet Pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageFilter
+
+          targets = [
+              Path('assets/transformations/ba-001-before.webp'),
+              Path('assets/transformations/ba-001-after.webp'),
+          ]
+
+          for path in targets:
+              if not path.exists():
+                  continue
+              with Image.open(path) as image:
+                  image = image.convert('RGB')
+                  target_size = (1152, 1536)
+                  if image.size != target_size:
+                      image = image.resize(target_size, Image.Resampling.LANCZOS)
+                  # Mild non-generative sharpening only; no content synthesis.
+                  image = image.filter(ImageFilter.UnsharpMask(radius=1.2, percent=105, threshold=3))
+                  image.save(path, 'WEBP', quality=95, method=6)
+                  print(f'{path}: {image.size[0]}x{image.size[1]}')
+          PY
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
