@@ -1,82 +1,124 @@
 :root{
-  --bg:#fffdfd;
+  --bg:#f4f4f2;
   --surface:#ffffff;
-  --text:#2b2529;
-  --muted:#77727a;
-  --line:rgba(155,150,158,.28);
-  --accent:#dfa0bb;
-  --accent-dark:#a56a82;
-  --soft:#f9e8ef;
-  --gold:#c8a24a;
-  --silver:#c7cbd1;
-  --silver-light:#eef0f3;
+  --text:#343434;
+  --muted:#7b7879;
+  --line:rgba(154,150,151,.32);
+  --accent:#c9b27c;
+  --accent-dark:#8f7748;
+  --soft:#e6e5e3;
+  --gold:#c9b27c;
+  --gold-deep:#9b7d45;
+  --silver:#9b9899;
+  --silver-light:#d7d7d7;
+  --charcoal:#333333;
   --white:#ffffff;
-  --shadow:0 24px 80px rgba(120,105,112,.14);
+  --shadow:0 24px 80px rgba(51,51,51,.12);
 }
 
 html{background:var(--bg)}
 body{
   background:
-    radial-gradient(circle at 82% 7%,rgba(223,160,187,.28),transparent 28rem),
-    radial-gradient(circle at 9% 38%,rgba(200,162,74,.13),transparent 27rem),
-    radial-gradient(circle at 88% 72%,rgba(199,203,209,.22),transparent 28rem),
-    linear-gradient(180deg,#fffdfd 0%,#ffffff 48%,#f7f7f8 100%);
+    radial-gradient(circle at 82% 7%,rgba(201,178,124,.18),transparent 28rem),
+    radial-gradient(circle at 9% 38%,rgba(154,150,151,.15),transparent 27rem),
+    radial-gradient(circle at 88% 72%,rgba(215,215,215,.30),transparent 28rem),
+    linear-gradient(180deg,#f7f7f5 0%,#ffffff 48%,#ededeb 100%);
 }
 
 .topbar{
-  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,253,253,.78));
-  border-bottom:1px solid rgba(199,203,209,.34);
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(244,244,242,.86));
+  border-bottom:1px solid rgba(154,150,151,.32);
 }
 
-.brand-mark,
-.proof-monogram{
-  color:#fff;
-  background:linear-gradient(145deg,#e6a9c2 0%,#c8a24a 52%,#c7cbd1 100%);
-  box-shadow:0 16px 34px rgba(200,162,74,.2),0 8px 22px rgba(223,160,187,.18);
+.brand-mark,.proof-monogram{
+  color:#343434;
+  background:linear-gradient(145deg,#eadbb8 0%,#c9b27c 52%,#d7d7d7 100%);
+  box-shadow:0 16px 34px rgba(143,119,72,.18),0 8px 22px rgba(51,51,51,.10);
 }
 
 .button-primary{
-  color:#fff;
-  background:linear-gradient(135deg,#dfa0bb 0%,#c8a24a 58%,#bfc4ca 100%);
-  box-shadow:0 14px 34px rgba(200,162,74,.22);
+  color:#343434;
+  background:linear-gradient(135deg,#eadbb8 0%,#c9b27c 58%,#d7d7d7 100%);
+  border-color:rgba(143,119,72,.28);
+  box-shadow:0 14px 34px rgba(143,119,72,.20);
 }
 
 .button-secondary,.button-ghost,.trust-strip span{
-  background:rgba(255,255,255,.82);
-  border-color:rgba(199,203,209,.42);
+  background:rgba(255,255,255,.88);
+  border-color:rgba(154,150,151,.38);
 }
 
-.proof-card,
-.contact-band{
-  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(249,232,239,.78) 58%,rgba(238,240,243,.78));
+.button-secondary:hover,.button-ghost:hover{border-color:rgba(143,119,72,.52)}
+
+.proof-card,.contact-band,.proof-finder{
+  border-color:rgba(201,178,124,.30);
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(244,244,242,.92) 58%,rgba(215,215,215,.72));
 }
 
 .proof-card:after{
-  background:linear-gradient(135deg,rgba(223,160,187,.12),rgba(200,162,74,.1),rgba(199,203,209,.12));
+  background:linear-gradient(135deg,rgba(201,178,124,.17),rgba(154,150,151,.12),rgba(215,215,215,.16));
 }
 
-.review-card,
-.case-card,
-.standards-grid article{
-  border-color:rgba(199,203,209,.42);
-  background:rgba(255,255,255,.88);
-  box-shadow:0 16px 42px rgba(121,113,119,.07);
+.hero-brand-frame{
+  border-color:rgba(154,150,151,.38);
+  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(232,232,230,.86));
 }
 
-.comparison-placeholder{
-  background:linear-gradient(135deg,#f9e8ef 0%,#ffffff 50%,#eef0f3 100%);
+.hero-brand-frame:before{
+  background:linear-gradient(125deg,rgba(201,178,124,.88),rgba(154,150,151,.66),rgba(215,215,215,.82),rgba(255,255,255,.96));
+}
+
+.hero-brand-glow{background:rgba(201,178,124,.20)}
+.hero-brand-art{filter:drop-shadow(0 14px 18px rgba(51,51,51,.13))}
+
+.review-card,.case-card,.standards-grid article,.academy-card{
+  border-color:rgba(154,150,151,.36);
+  background:rgba(255,255,255,.92);
+  box-shadow:0 16px 42px rgba(51,51,51,.07);
+}
+
+.comparison-placeholder,.comparison-slider{
+  background:linear-gradient(135deg,#e5e5e3 0%,#ffffff 50%,#d7d7d7 100%);
 }
 
 .review-tags span,.case-tags span,.status-pill{
-  background:linear-gradient(135deg,rgba(249,232,239,.96),rgba(238,240,243,.96));
-  color:#9a6279;
+  background:linear-gradient(135deg,rgba(232,232,230,.98),rgba(215,215,215,.98));
+  color:#595757;
 }
 
-.stars{color:#c8a24a}
-.eyebrow,.proof-label,.standards-grid article>span{color:#a56a82}
+.stars{color:#b89755}
+.eyebrow,.proof-label,.standards-grid article>span,.text-link{color:#8f7748}
 
-::selection{background:rgba(223,160,187,.35);color:#2b2529}
-
-@media (prefers-color-scheme:dark){
-  :root{color-scheme:light}
+.search-field input:focus{
+  border-color:rgba(201,178,124,.72);
+  box-shadow:0 0 0 4px rgba(201,178,124,.16);
 }
+
+.filter-chip:hover,.service-shortcuts button:hover{color:#8f7748;border-color:rgba(201,178,124,.55)}
+.filter-chip.is-active,.service-shortcuts button.is-active,.comparison-handle span,.mobile-action-bar a:first-child{
+  color:#343434;
+  background:linear-gradient(135deg,#eadbb8,#c9b27c 62%,#aaa7a8);
+}
+
+.review-card:target{outline:3px solid rgba(201,178,124,.30);box-shadow:0 22px 55px rgba(51,51,51,.14)}
+.comparison-handle{box-shadow:0 0 0 1px rgba(51,51,51,.08),0 0 24px rgba(201,178,124,.28)}
+.comparison-range:focus-visible+.comparison-handle{outline:3px solid rgba(201,178,124,.42)}
+
+.mobile-action-bar{
+  border-color:rgba(201,178,124,.34);
+  background:rgba(255,255,255,.94);
+  box-shadow:0 18px 48px rgba(51,51,51,.16);
+}
+
+.studio-academy:before{
+  background:radial-gradient(circle at 18% 25%,rgba(201,178,124,.13),transparent 28rem),radial-gradient(circle at 82% 55%,rgba(154,150,151,.13),transparent 30rem);
+}
+
+.motion-preview-wrap{background:linear-gradient(145deg,#eeeeec,#e4d6b3 48%,#d7d7d7)}
+.media-integrity-note{border-color:rgba(154,150,151,.48);background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(232,232,230,.90))}
+.media-kicker{color:#8f7748}
+.master-note{color:#777475!important}
+
+::selection{background:rgba(201,178,124,.38);color:#343434}
+
+@media (prefers-color-scheme:dark){:root{color-scheme:light}}
