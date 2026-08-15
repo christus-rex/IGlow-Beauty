@@ -1,22 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">iGlow Beauty</title>
-  <desc id="desc">A luminous gold, pink, silver and white app icon with an iG monogram and glow star.</desc>
-  <defs>
-    <linearGradient id="bg" x1="54" y1="42" x2="456" y2="470" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="0.28" stop-color="#e6a9c2"/>
-      <stop offset="0.62" stop-color="#c8a24a"/>
-      <stop offset="1" stop-color="#c7cbd1"/>
-    </linearGradient>
-    <radialGradient id="shine" cx="0" cy="0" r="1" gradientTransform="translate(170 132) rotate(43) scale(250)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffffff" stop-opacity=".94"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="512" height="512" rx="126" fill="url(#bg)"/>
-  <circle cx="190" cy="164" r="206" fill="url(#shine)"/>
-  <circle cx="256" cy="256" r="168" fill="none" stroke="#ffffff" stroke-opacity=".68" stroke-width="3"/>
-  <circle cx="256" cy="256" r="150" fill="none" stroke="#c7cbd1" stroke-opacity=".42" stroke-width="2"/>
-  <path d="M368 104l10 25 25 10-25 10-10 25-10-25-25-10 25-10 10-25Z" fill="#ffffff"/>
-  <text x="256" y="306" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="180" font-weight="700" letter-spacing="-18">iG</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" role="img" aria-labelledby="title desc">
+<title id="title">I Glow Beauty Bar</title>
+<desc id="desc">Gold floral feminine profile emblem for I Glow Beauty Bar on black.</desc>
+<defs>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b8955b"/>
+    <stop offset="0.16" stop-color="#f0d7a4"/>
+    <stop offset="0.34" stop-color="#b39255"/>
+    <stop offset="0.52" stop-color="#e6c98c"/>
+    <stop offset="0.70" stop-color="#8f7444"/>
+    <stop offset="0.87" stop-color="#d7bc82"/>
+    <stop offset="1" stop-color="#9c814c"/>
+  </linearGradient>
+</defs>
+<rect width="520" height="520" fill="#000"/>
+<g transform="translate(25 0)">
+<path fill="url(#gold)" fill-rule="evenodd" d="M 336 473 L 339 478 L 346 482 L 357 484 L 370 484 L 376 481 L 354 478 Z M 101 324 L 98 345 L 101 378 L 109 402 L 125 428 L 144 450 L 166 467 L 193 482 L 225 493 L 266 500 L 311 504 L 346 504 L 374 506 L 395 510 L 387 502 L 369 496 L 340 492 L 302 490 L 267 486 L 232 479 L 202 468 L 178 454 L 158 438 L 142 420 L 128 398 L 120 377 L 114 346 L 110 333 L 107 328 Z M 123 215 L 118 218 L 129 225 L 136 233 L 133 239 L 120 239 L 120 247 L 128 271 L 126 273 L 115 258 L 108 253 L 102 253 L 101 263 L 97 270 L 92 259 L 92 246 L 90 239 L 84 255 L 82 279 L 86 289 L 92 296 L 111 304 L 134 310 L 139 309 L 144 304 L 151 280 L 163 267 L 166 255 L 161 244 L 153 234 L 136 224 Z M 55 211 L 45 216 L 30 226 L 21 240 L 20 249 L 22 282 L 28 288 L 44 289 L 55 294 L 64 294 L 69 290 L 74 280 L 80 237 L 73 242 L 69 253 L 64 254 L 61 251 L 61 246 L 67 234 L 63 231 L 50 234 L 46 232 L 54 221 L 72 214 L 64 211 Z M 95 198 L 94 200 L 95 206 L 101 208 L 106 204 L 106 199 L 103 197 Z M 164 138 L 151 145 L 141 152 L 129 164 L 122 177 L 146 159 L 149 161 L 146 169 L 147 174 L 163 171 L 172 174 L 173 177 L 166 181 L 150 185 L 165 194 L 163 199 L 148 195 L 131 195 L 130 197 L 151 206 L 172 224 L 182 226 L 188 221 L 195 197 L 205 185 L 206 178 L 203 174 L 177 144 L 171 139 Z M 52 120 L 48 121 L 35 130 L 17 138 L 8 148 L 9 169 L 2 180 L 2 186 L 6 193 L 16 200 L 26 201 L 52 187 L 82 188 L 78 184 L 69 180 L 43 177 L 49 174 L 62 173 L 68 170 L 68 166 L 64 156 L 66 152 L 69 154 L 81 172 L 84 174 L 82 166 L 59 125 Z M 166 112 L 123 84 L 116 84 L 111 87 L 101 98 L 91 104 L 86 104 L 83 107 L 82 119 L 90 139 L 105 160 L 107 152 L 107 130 L 110 130 L 110 143 L 113 149 L 124 132 L 130 128 L 130 133 L 121 152 L 121 159 L 135 144 L 166 121 L 168 116 Z M 231 76 L 215 80 L 186 92 L 171 102 L 171 106 L 178 115 Z M 316 44 L 263 89 L 236 107 L 198 129 L 198 133 L 203 140 L 213 142 L 297 105 L 294 113 L 273 142 L 183 237 L 167 258 L 157 278 L 151 298 L 150 320 L 158 355 L 170 374 L 178 382 L 176 376 L 166 357 L 160 330 L 162 310 L 170 289 L 187 265 L 259 184 L 310 135 L 343 110 L 378 88 L 388 77 L 391 68 L 386 74 L 378 80 L 363 84 L 342 89 L 324 93 L 323 89 L 329 77 L 332 67 L 332 62 L 327 69 L 319 78 L 309 86 L 293 93 L 279 95 L 279 92 L 300 76 L 317 59 Z"/>
+</g>
 </svg>
