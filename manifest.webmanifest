@@ -1,12 +1,12 @@
 {
   "name": "iGlow Beauty",
   "short_name": "iGlow",
-  "description": "A personalized beauty and glow experience.",
+  "description": "I Glow Beauty Bar customer reviews, results, studio story, and academy experience.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f4f4f2",
-  "theme_color": "#c9b27c",
+  "theme_color": "#343434",
   "orientation": "portrait-primary",
   "icons": [
     {
