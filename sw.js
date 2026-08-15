@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v18';
+const CACHE_NAME = 'iglow-beauty-v19';
 const INDEX_FALLBACK = './index.html';
 const APP_SHELL = [
   './',
@@ -14,7 +14,6 @@ const APP_SHELL = [
   './assets/iglow-logo.svg',
   './assets/academy-lash-brow.svg',
   './assets/academy-hair.svg',
-  './data/reviews.json',
   './data/transformations.json',
   './data/sources.json',
   './data/studio-academy.json'
@@ -86,8 +85,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (request.destination === 'image') {
-    // Preserve customer media exactly as served. Cache stores the original response bytes;
-    // there is no resizing, transcoding, recompression, or HTML fallback for image requests.
+    // Preserve portfolio images exactly as served: no resizing, transcoding,
+    // recompression, or document fallback is introduced by the PWA cache.
     event.respondWith(cacheFirstExact(request));
     return;
   }

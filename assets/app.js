@@ -1,20 +1,13 @@
 const installButton = document.querySelector('#installButton');
 const year = document.querySelector('#year');
-const reviewGrid = document.querySelector('#reviewGrid');
 const caseGrid = document.querySelector('#caseGrid');
-const heroRating = document.querySelector('#heroRating');
-const heroReviewCount = document.querySelector('#heroReviewCount');
-const cardRating = document.querySelector('#cardRating');
-const cardReviewCount = document.querySelector('#cardReviewCount');
 const proofSearch = document.querySelector('#proofSearch');
 const serviceFilters = document.querySelector('#serviceFilters');
 const filterSummary = document.querySelector('#filterSummary');
-const reviewResultCount = document.querySelector('#reviewResultCount');
 const transformationResultCount = document.querySelector('#transformationResultCount');
-const proofFinder = document.querySelector('#proofFinder');
+const portfolioFinder = document.querySelector('#portfolioFinder');
 
 let deferredInstallPrompt = null;
-let reviewArchive = [];
 let transformationArchive = [];
 let searchTerm = '';
 
@@ -26,7 +19,6 @@ const escapeHtml = (value = '') => String(value)
   .replaceAll("'", '&#039;');
 
 const normalize = (value = '') => String(value).trim().toLowerCase();
-const safeDomId = (value = '') => String(value).replace(/[^a-zA-Z0-9_-]/g, '-');
 const titleCase = (value = '') => String(value).replace(/[-_]+/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const initialService = normalize(new URLSearchParams(window.location.search).get('service') || 'all');
@@ -35,9 +27,9 @@ let activeFilter = initialService || 'all';
 if (year) year.textContent = new Date().getFullYear();
 
 function injectMeetIGlow() {
-  const studioSection = document.querySelector('#studio-academy');
-  const mediaGrid = studioSection?.querySelector('.academy-media-grid');
-  if (!studioSection || !mediaGrid || studioSection.querySelector('.meet-iglow-feature')) return;
+  const academySection = document.querySelector('#studio-academy');
+  const mediaGrid = academySection?.querySelector('.academy-media-grid');
+  if (!academySection || !mediaGrid || academySection.querySelector('.meet-iglow-feature')) return;
 
   const feature = document.createElement('article');
   feature.className = 'meet-iglow-feature';
@@ -45,7 +37,7 @@ function injectMeetIGlow() {
     <div class="meet-iglow-copy">
       <span class="media-kicker">MEET IGLOW</span>
       <h3>Beauty, confidence &amp; care—under one roof.</h3>
-      <p>Meet the professionals behind the I Glow Beauty Bar experience. The team is presented separately from client proof so staff information stays clear, professional, and source-grounded.</p>
+      <p>Meet the professionals behind the I Glow Beauty Bar experience. Team information stays separate from the client transformation portfolio.</p>
       <div class="meet-iglow-values" aria-label="I Glow Beauty Bar highlights">
         <span>Passionate professionals</span>
         <span>Personalized care</span>
@@ -61,7 +53,7 @@ function injectMeetIGlow() {
 
   const teamImage = feature.querySelector('img');
   teamImage?.addEventListener('error', () => feature.remove(), { once: true });
-  mediaGrid.before(feature);
+  mediaGrid.after(feature);
 }
 
 injectMeetIGlow();
@@ -72,24 +64,10 @@ async function getJson(path) {
   return response.json();
 }
 
-function reviewTags(review) {
-  return Array.isArray(review.service_tags) ? review.service_tags.map(normalize).filter(Boolean) : [];
-}
-
 function transformationTags(item) {
   const tags = Array.isArray(item.service_tags) ? [...item.service_tags] : [];
   if (item.service) tags.push(item.service);
-  return tags.map(normalize).filter(Boolean);
-}
-
-function reviewHaystack(review) {
-  return normalize([
-    review.reviewer,
-    review.source,
-    review.quote,
-    review.summary,
-    ...(review.service_tags || [])
-  ].filter(Boolean).join(' '));
+  return [...new Set(tags.map(normalize).filter(Boolean))];
 }
 
 function transformationHaystack(item) {
@@ -98,15 +76,18 @@ function transformationHaystack(item) {
     item.service,
     item.customer_label,
     item.caption,
+    item.description,
     ...(item.service_tags || [])
   ].filter(Boolean).join(' '));
 }
 
-function matchesReview(review) {
-  const tags = reviewTags(review);
-  const filterMatches = activeFilter === 'all' || tags.includes(activeFilter);
-  const searchMatches = !searchTerm || reviewHaystack(review).includes(searchTerm);
-  return filterMatches && searchMatches;
+function publishableTransformations() {
+  return transformationArchive.filter((item) =>
+    item.consent_confirmed === true &&
+    item.publication_authorized === true &&
+    item.before_image &&
+    item.after_image
+  );
 }
 
 function matchesTransformation(item) {
@@ -116,32 +97,16 @@ function matchesTransformation(item) {
   return filterMatches && searchMatches;
 }
 
-function publishableTransformations() {
-  return transformationArchive.filter((item) => item.consent_confirmed === true && item.before_image && item.after_image);
-}
-
 function syncSectionVisibility() {
-  const reviewsSection = document.querySelector('#reviews');
   const resultsSection = document.querySelector('#results');
-  const quickFilters = document.querySelector('.service-shortcuts');
-  const hasReviews = reviewArchive.length > 0;
   const hasResults = publishableTransformations().length > 0;
 
-  if (reviewsSection) reviewsSection.hidden = !hasReviews;
   if (resultsSection) resultsSection.hidden = !hasResults;
-  if (proofFinder) proofFinder.hidden = !(hasReviews || hasResults);
-  if (quickFilters) quickFilters.hidden = !(hasReviews || hasResults);
+  if (portfolioFinder) portfolioFinder.hidden = !hasResults;
 
   document.querySelectorAll('.nav a[href^="#"]').forEach((link) => {
     const target = document.querySelector(link.getAttribute('href'));
     link.hidden = !target || target.hidden;
-  });
-
-  document.querySelectorAll('section').forEach((section) => {
-    if (section.hidden) return;
-    const meaningfulText = section.textContent.replace(/\s+/g, '').length > 0;
-    const meaningfulMedia = section.querySelector('img,video,picture,svg,canvas,iframe,input,button,a');
-    if (!meaningfulText && !meaningfulMedia) section.remove();
   });
 }
 
@@ -152,88 +117,47 @@ function syncFilterUrl() {
   window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
 }
 
-function syncQuickFilterState() {
-  document.querySelectorAll('[data-service-filter]').forEach((button) => {
-    const selected = normalize(button.dataset.serviceFilter) === activeFilter;
-    button.setAttribute('aria-pressed', String(selected));
-    button.classList.toggle('is-active', selected);
-  });
-}
-
 function setActiveFilter(filter, { scroll = false, syncUrl = true } = {}) {
   activeFilter = normalize(filter || 'all') || 'all';
   if (syncUrl) syncFilterUrl();
-  renderArchive();
-  if (scroll && proofFinder && !proofFinder.hidden) {
-    proofFinder.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+  renderPortfolio();
+  if (scroll && portfolioFinder && !portfolioFinder.hidden) {
+    portfolioFinder.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
   }
 }
 
 function buildFilterChips() {
   if (!serviceFilters) return;
   const tags = new Set();
-  reviewArchive.forEach((review) => reviewTags(review).forEach((tag) => tags.add(tag)));
-  transformationArchive.forEach((item) => transformationTags(item).forEach((tag) => tags.add(tag)));
-  document.querySelectorAll('[data-service-filter]').forEach((button) => {
-    const tag = normalize(button.dataset.serviceFilter);
-    if (tag) tags.add(tag);
-  });
+  publishableTransformations().forEach((item) => transformationTags(item).forEach((tag) => tags.add(tag)));
 
   const chips = ['all', ...Array.from(tags).sort((a, b) => a.localeCompare(b))];
+  if (!chips.includes(activeFilter)) activeFilter = 'all';
+
   serviceFilters.innerHTML = chips.map((tag) => {
     const active = tag === activeFilter;
-    const label = tag === 'all' ? 'All proof' : titleCase(tag);
+    const label = tag === 'all' ? 'All transformations' : titleCase(tag);
     return `<button class="filter-chip${active ? ' is-active' : ''}" type="button" data-filter="${escapeHtml(tag)}" aria-pressed="${active}">${escapeHtml(label)}</button>`;
   }).join('');
 }
 
-function renderReviews() {
-  if (!reviewGrid) return;
-  const visibleReviews = reviewArchive.filter(matchesReview);
-  if (reviewResultCount) reviewResultCount.textContent = visibleReviews.length;
-
-  if (!visibleReviews.length) {
-    reviewGrid.innerHTML = '<article class="review-card loading-card"><p>No testimonials match this filter yet.</p></article>';
-    return;
-  }
-
-  reviewGrid.innerHTML = visibleReviews.map((review) => {
-    const stars = '★'.repeat(Math.max(1, Math.min(5, Number(review.rating) || 5)));
-    const tags = (review.service_tags || []).map((tag) => `<span>${escapeHtml(titleCase(tag))}</span>`).join('');
-    const content = review.quote
-      ? `<blockquote>“${escapeHtml(review.quote)}”</blockquote>`
-      : `<p class="review-summary">${escapeHtml(review.summary || 'Verified customer feedback.')}</p>`;
-    const reviewId = safeDomId(review.id || review.reviewer || 'review');
-
-    return `<article class="review-card" id="review-${reviewId}">
-      <div class="review-source"><span>${escapeHtml(review.source || 'Customer review')}</span><span class="stars" aria-label="${escapeHtml(review.rating)} out of 5 stars">${stars}</span></div>
-      ${content}
-      <div class="review-meta"><strong>${escapeHtml(review.reviewer || 'Customer')}</strong><div class="review-tags">${tags}</div></div>
-    </article>`;
-  }).join('');
+function sourceDimensions(item) {
+  const match = String(item.source_resolution || '').match(/^(\d+)[xX](\d+)$/);
+  return match ? { width: match[1], height: match[2] } : null;
 }
 
-function relatedReviewLinks(item) {
-  const ids = Array.isArray(item.related_review_ids)
-    ? item.related_review_ids
-    : (Array.isArray(item.review_ids) ? item.review_ids : []);
-  const related = ids.map((id) => reviewArchive.find((review) => review.id === id)).filter(Boolean);
-  if (!related.length) return '';
-
-  const links = related.map((review) => {
-    const target = safeDomId(review.id || 'review');
-    return `<a href="#review-${target}">${escapeHtml(review.reviewer || 'Related testimonial')}</a>`;
-  }).join(' · ');
-  return `<p class="related-proof"><strong>Related testimonial:</strong> ${links}</p>`;
-}
-
-function comparisonMarkup(item) {
+function comparisonMarkup(item, priority = false) {
   const title = item.title || 'Client result';
   const beforeAlt = item.before_alt || `Before ${title}`;
   const afterAlt = item.after_alt || `After ${title}`;
+  const dimensions = sourceDimensions(item);
+  const sizeAttrs = dimensions ? ` width="${dimensions.width}" height="${dimensions.height}"` : '';
+  const loading = priority ? 'eager' : 'lazy';
+  const fetchPriority = priority ? ' fetchpriority="high"' : '';
+
   return `<div class="comparison-slider" data-comparison style="--split:50%">
-    <img class="comparison-image comparison-before" src="${escapeHtml(item.before_image)}" alt="${escapeHtml(beforeAlt)}" loading="lazy" decoding="async" />
-    <img class="comparison-image comparison-after" src="${escapeHtml(item.after_image)}" alt="${escapeHtml(afterAlt)}" loading="lazy" decoding="async" />
+    <img class="comparison-image comparison-before" src="${escapeHtml(item.before_image)}" alt="${escapeHtml(beforeAlt)}"${sizeAttrs} loading="${loading}" decoding="async"${fetchPriority} />
+    <img class="comparison-image comparison-after" src="${escapeHtml(item.after_image)}" alt="${escapeHtml(afterAlt)}"${sizeAttrs} loading="${loading}" decoding="async"${fetchPriority} />
     <span class="comparison-label comparison-label-before">Before</span>
     <span class="comparison-label comparison-label-after">After</span>
     <span class="comparison-handle" aria-hidden="true"><span>↔</span></span>
@@ -251,16 +175,15 @@ function renderTransformations() {
     return;
   }
 
-  caseGrid.innerHTML = visibleItems.map((item) => {
+  caseGrid.innerHTML = visibleItems.map((item, index) => {
     const tags = transformationTags(item).map((tag) => `<span>${escapeHtml(titleCase(tag))}</span>`).join('');
     return `<article class="case-card">
-      ${comparisonMarkup(item)}
+      ${comparisonMarkup(item, index === 0)}
       <div class="case-copy">
         <div class="case-tags">${tags}</div>
         <h3>${escapeHtml(item.title || 'Client result')}</h3>
         <p>${escapeHtml(item.caption || '')}</p>
-        ${relatedReviewLinks(item)}
-        <span class="status-pill">Published client result</span>
+        <span class="status-pill">High-resolution client result</span>
       </div>
     </article>`;
   }).join('');
@@ -272,44 +195,26 @@ function updateFilterSummary() {
   if (activeFilter !== 'all') parts.push(titleCase(activeFilter));
   if (searchTerm) parts.push(`“${searchTerm}”`);
   filterSummary.textContent = parts.length
-    ? `Filtering the proof archive by ${parts.join(' and ')}.`
-    : 'Showing the complete proof archive.';
+    ? `Filtering transformations by ${parts.join(' and ')}.`
+    : 'Showing the complete before-and-after portfolio.';
 }
 
-function renderArchive() {
+function renderPortfolio() {
   buildFilterChips();
-  renderReviews();
   renderTransformations();
   updateFilterSummary();
-  syncQuickFilterState();
   syncSectionVisibility();
 }
 
-async function loadArchive() {
+async function loadPortfolio() {
   try {
-    const [reviewData, transformationData] = await Promise.all([
-      getJson('./data/reviews.json'),
-      getJson('./data/transformations.json')
-    ]);
-
-    if (reviewData.business) {
-      const rating = reviewData.business.rating ?? '—';
-      const reviewCount = reviewData.business.review_count ?? 0;
-      if (heroRating) heroRating.textContent = rating;
-      if (heroReviewCount) heroReviewCount.textContent = reviewCount;
-      if (cardRating) cardRating.textContent = `${rating} / 5`;
-      if (cardReviewCount) cardReviewCount.textContent = reviewCount;
-    }
-
-    reviewArchive = Array.isArray(reviewData.reviews) ? reviewData.reviews : [];
+    const transformationData = await getJson('./data/transformations.json');
     transformationArchive = Array.isArray(transformationData.transformations) ? transformationData.transformations : [];
-    renderArchive();
+    renderPortfolio();
   } catch (error) {
     console.warn(error);
-    document.querySelector('#reviews')?.setAttribute('hidden', '');
     document.querySelector('#results')?.setAttribute('hidden', '');
-    proofFinder?.setAttribute('hidden', '');
-    document.querySelector('.service-shortcuts')?.setAttribute('hidden', '');
+    portfolioFinder?.setAttribute('hidden', '');
     syncSectionVisibility();
   }
 }
@@ -320,15 +225,9 @@ serviceFilters?.addEventListener('click', (event) => {
   setActiveFilter(button.dataset.filter || 'all');
 });
 
-document.addEventListener('click', (event) => {
-  const button = event.target.closest('[data-service-filter]');
-  if (!button) return;
-  setActiveFilter(button.dataset.serviceFilter || 'all', { scroll: true });
-});
-
 proofSearch?.addEventListener('input', (event) => {
   searchTerm = normalize(event.target.value);
-  renderArchive();
+  renderPortfolio();
 });
 
 caseGrid?.addEventListener('input', (event) => {
@@ -338,7 +237,7 @@ caseGrid?.addEventListener('input', (event) => {
   slider?.style.setProperty('--split', `${range.value}%`);
 });
 
-loadArchive();
+loadPortfolio();
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
