@@ -1,0 +1,9 @@
+{
+  "business": "I Glow Beauty Bar",
+  "source_id": "vagaro-staff-seed-001",
+  "source_url": "https://www.vagaro.com/iglowbeautybar/staff",
+  "source_label": "Vagaro staff directory",
+  "status": "seeded_pending_verified_import",
+  "verification_policy": "Staff names, roles, specialties, profile links, and booking links must be verified from the Vagaro staff directory or supplied directly by I Glow Beauty Bar before publication. Do not identify employees solely from photographs.",
+  "staff": []
+}
