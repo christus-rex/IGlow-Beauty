@@ -25,8 +25,16 @@
       "category": "studio_story",
       "title": "Inside iGlow",
       "source_type": "user_supplied_video",
-      "published_asset": "./assets/studio-tour.svg",
-      "video_hosting_status": "source_video_retained_outside_public_web_bundle",
+      "preview_asset": "./assets/iglow-studio-preview.webp",
+      "reduced_motion_asset": "./assets/studio-tour.svg",
+      "master_archive": {
+        "provider": "google_drive",
+        "file_id": "1J7jlpJAX56bNj3WK5oh4cw8ncUfcr1NK",
+        "file_name": "iGlow-Studio-Walkthrough.mp4",
+        "sharing_status": "private_archive"
+      },
+      "duration_seconds": 28.03,
+      "video_hosting_status": "motion_preview_public_master_private_drive",
       "proof_classification": "brand_story_not_client_proof"
     },
     {
@@ -34,8 +42,16 @@
       "category": "milestone",
       "title": "Grand Opening",
       "source_type": "user_supplied_video",
-      "published_asset": "./assets/grand-opening.svg",
-      "video_hosting_status": "source_video_retained_outside_public_web_bundle",
+      "preview_asset": "./assets/iglow-grand-opening-preview.webp",
+      "reduced_motion_asset": "./assets/grand-opening.svg",
+      "master_archive": {
+        "provider": "google_drive",
+        "file_id": "1CB28i9IOEDT1bnr3BxLUoMX1NChxBsDb",
+        "file_name": "iGlow-Grand-Opening.mp4",
+        "sharing_status": "private_archive"
+      },
+      "duration_seconds": 59.79,
+      "video_hosting_status": "motion_preview_public_master_private_drive",
       "proof_classification": "brand_story_not_client_proof"
     },
     {
