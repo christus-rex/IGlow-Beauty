@@ -24,26 +24,57 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Verify BA-001 high-resolution assets
+      - name: Verify published customer media fidelity
         run: |
           set -euo pipefail
           python -m pip install --quiet Pillow
           python - <<'PY'
+          import hashlib
+          import json
+          import re
           from pathlib import Path
           from PIL import Image
 
-          expected = (1152, 1536)
-          paths = [
-              Path('assets/transformations/ba-001-before-hq.webp'),
-              Path('assets/transformations/ba-001-after-hq.webp'),
-          ]
-          for path in paths:
-              if not path.exists():
-                  raise SystemExit(f'Missing required high-resolution asset: {path}')
-              with Image.open(path) as image:
-                  if image.size != expected:
-                      raise SystemExit(f'{path}: expected {expected[0]}x{expected[1]}, got {image.size[0]}x{image.size[1]}')
-                  print(f'{path}: verified {image.size[0]}x{image.size[1]}, {path.stat().st_size:,} bytes')
+          catalog_path = Path('data/transformations.json')
+          catalog = json.loads(catalog_path.read_text(encoding='utf-8'))
+          checked = 0
+
+          for item in catalog.get('transformations', []):
+              if not (item.get('consent_confirmed') is True and item.get('publication_authorized') is True):
+                  continue
+
+              item_id = item.get('id', 'unknown')
+              declared = str(item.get('source_resolution') or '').strip()
+              match = re.fullmatch(r'(\d+)[xX](\d+)', declared)
+              if not match:
+                  raise SystemExit(f'{item_id}: missing or invalid source_resolution; refusing to publish unverifiable customer media.')
+
+              expected = (int(match.group(1)), int(match.group(2)))
+              for field in ('before_image', 'after_image'):
+                  ref = item.get(field)
+                  if not ref:
+                      raise SystemExit(f'{item_id}: missing {field}.')
+                  if ref.startswith(('http://', 'https://')):
+                      raise SystemExit(f'{item_id}: {field} must be a repository-hosted original so fidelity can be verified.')
+
+                  path = Path(ref.removeprefix('./'))
+                  if not path.is_file():
+                      raise SystemExit(f'{item_id}: missing customer image {path}.')
+
+                  with Image.open(path) as image:
+                      image.load()
+                      actual = image.size
+                  if actual != expected:
+                      raise SystemExit(
+                          f'{item_id}: {path} expected {expected[0]}x{expected[1]}, got {actual[0]}x{actual[1]}; '
+                          'refusing to resize, upscale, recompress, or publish a lower-resolution substitute.'
+                      )
+
+                  digest = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+                  print(f'{item_id}: {field} verified {actual[0]}x{actual[1]} • sha256 {digest} • {path.stat().st_size:,} bytes')
+                  checked += 1
+
+          print(f'Customer media fidelity check passed for {checked} published image(s). No image files were modified.')
           PY
 
       - name: Configure Pages
