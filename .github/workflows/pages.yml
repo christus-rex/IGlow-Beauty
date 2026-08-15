@@ -30,32 +30,47 @@ jobs:
           python -m pip install --quiet Pillow
           mkdir -p /tmp/iglow-masters
 
-          curl --fail --location --retry 3 --retry-delay 2 \
-            --output /tmp/iglow-masters/ba-001-before.jpg \
-            "https://drive.usercontent.google.com/download?id=1hqDa2wLXvpOItbnDBPLb1jZaj7pNAFg7&export=download&confirm=t"
-
-          curl --fail --location --retry 3 --retry-delay 2 \
-            --output /tmp/iglow-masters/ba-001-after.jpg \
-            "https://drive.usercontent.google.com/download?id=1y0skPUFgR5VITDYPW9qJVCVLdlAZldoJ&export=download&confirm=t"
-
           python - <<'PY'
           from pathlib import Path
+          from urllib.request import Request, urlopen
           from PIL import Image, ImageOps
 
-          pairs = [
-              (Path('/tmp/iglow-masters/ba-001-before.jpg'), Path('assets/transformations/ba-001-before.webp')),
-              (Path('/tmp/iglow-masters/ba-001-after.jpg'), Path('assets/transformations/ba-001-after.webp')),
-          ]
-
+          sources = {
+              'before': '1hqDa2wLXvpOItbnDBPLb1jZaj7pNAFg7',
+              'after': '1y0skPUFgR5VITDYPW9qJVCVLdlAZldoJ',
+          }
           expected = (1152, 1536)
-          for source, target in pairs:
-              with Image.open(source) as image:
-                  image = ImageOps.exif_transpose(image).convert('RGB')
-                  if image.size != expected:
-                      raise SystemExit(f'{source.name}: expected {expected[0]}x{expected[1]}, received {image.size[0]}x{image.size[1]}; refusing to upscale a low-resolution source.')
-                  target.parent.mkdir(parents=True, exist_ok=True)
-                  image.save(target, 'WEBP', quality=96, method=6)
-                  print(f'{target}: source {image.size[0]}x{image.size[1]}, output {target.stat().st_size:,} bytes')
+
+          def candidates(file_id):
+              return [
+                  f'https://drive.google.com/thumbnail?id={file_id}&sz=w1600',
+                  f'https://lh3.googleusercontent.com/d/{file_id}=w1600',
+                  f'https://drive.google.com/uc?export=view&id={file_id}',
+                  f'https://drive.google.com/uc?export=download&id={file_id}',
+              ]
+
+          for label, file_id in sources.items():
+              source = Path(f'/tmp/iglow-masters/ba-001-{label}.img')
+              image = None
+              for url in candidates(file_id):
+                  try:
+                      request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                      data = urlopen(request, timeout=30).read()
+                      source.write_bytes(data)
+                      with Image.open(source) as test:
+                          test.load()
+                          candidate = ImageOps.exif_transpose(test).convert('RGB')
+                      print(f'{label}: candidate {url} -> {candidate.size[0]}x{candidate.size[1]}, {len(data):,} bytes')
+                      if candidate.size == expected:
+                          image = candidate
+                          break
+                  except Exception as exc:
+                      print(f'{label}: candidate failed {url}: {exc}')
+              if image is None:
+                  raise SystemExit(f'{label}: no unauthenticated Google image endpoint returned the verified {expected[0]}x{expected[1]} master.')
+              target = Path(f'assets/transformations/ba-001-{label}.webp')
+              image.save(target, 'WEBP', quality=96, method=6)
+              print(f'{target}: verified master {image.size[0]}x{image.size[1]}, output {target.stat().st_size:,} bytes')
           PY
 
       - name: Configure Pages
