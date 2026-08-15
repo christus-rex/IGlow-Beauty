@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v16';
+const CACHE_NAME = 'iglow-beauty-v17';
 const APP_SHELL = [
   './',
   './index.html',
@@ -13,10 +13,6 @@ const APP_SHELL = [
   './assets/iglow-logo.svg',
   './assets/academy-lash-brow.svg',
   './assets/academy-hair.svg',
-  './assets/studio-tour.svg',
-  './assets/grand-opening.svg',
-  './assets/iglow-studio-preview.webp',
-  './assets/iglow-grand-opening-preview.webp',
   './data/reviews.json',
   './data/transformations.json',
   './data/sources.json',
