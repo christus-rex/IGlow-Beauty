@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v13';
+const CACHE_NAME = 'iglow-beauty-v14';
 const APP_SHELL = [
   './',
   './index.html',
