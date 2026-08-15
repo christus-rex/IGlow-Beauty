@@ -1,4 +1,5 @@
-const CACHE_NAME = 'iglow-beauty-v17';
+const CACHE_NAME = 'iglow-beauty-v18';
+const INDEX_FALLBACK = './index.html';
 const APP_SHELL = [
   './',
   './index.html',
@@ -31,15 +32,65 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+async function putIfUsable(request, response) {
+  if (!response || !response.ok) return response;
+  const cache = await caches.open(CACHE_NAME);
+  await cache.put(request, response.clone());
+  return response;
+}
+
+async function networkFirst(request, fallback = null) {
+  try {
+    return await putIfUsable(request, await fetch(request));
+  } catch (error) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    if (fallback) {
+      const fallbackResponse = await caches.match(fallback);
+      if (fallbackResponse) return fallbackResponse;
+    }
+    throw error;
+  }
+}
+
+async function cacheFirstExact(request) {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+  return putIfUsable(request, await fetch(request));
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request);
+  const network = fetch(request)
+    .then((response) => putIfUsable(request, response))
+    .catch(() => null);
+  return cached || (await network) || new Response('', { status: 504, statusText: 'Offline' });
+}
+
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
-      })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
-  );
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith(networkFirst(request, INDEX_FALLBACK));
+    return;
+  }
+
+  if (url.pathname.includes('/data/') || request.destination === 'document') {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  if (request.destination === 'image') {
+    // Preserve customer media exactly as served. Cache stores the original response bytes;
+    // there is no resizing, transcoding, recompression, or HTML fallback for image requests.
+    event.respondWith(cacheFirstExact(request));
+    return;
+  }
+
+  event.respondWith(staleWhileRevalidate(request));
 });
