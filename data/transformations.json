@@ -1,5 +1,41 @@
 {
-  "transformations": [],
+  "transformations": [
+    {
+      "id": "BA-001",
+      "title": "Copper Revival",
+      "service": "Hair Color Transformation + Cut + Style",
+      "service_tags": [
+        "hair",
+        "color transformation",
+        "copper hair",
+        "auburn hair",
+        "haircut",
+        "styling"
+      ],
+      "customer_label": "Client BA-001",
+      "before_image": "./assets/transformations/ba-001-before.jpg",
+      "before_alt": "Before hair transformation showing long hair with dark regrowth and uneven warm copper-orange lengths.",
+      "after_image": "./assets/transformations/ba-001-after.jpg",
+      "after_alt": "After hair transformation showing a polished shoulder-length copper auburn style with soft waves.",
+      "before_video": "./assets/transformations/ba-001-before.mp4",
+      "after_video": "./assets/transformations/ba-001-after.mp4",
+      "source_media": {
+        "before_photo": "9183.jpg",
+        "after_photo": "9189.jpg",
+        "before_video": "9185.mp4",
+        "after_video": "9188.mp4"
+      },
+      "caption": "From uneven warm tones to a polished copper finish with a refreshed shape and soft waves.",
+      "description": "A four-asset before-and-after case documenting a visible hair transformation across still photography and motion. The result shows a more consistent copper-auburn tone, refreshed length and shape, added shine, and a styled wave finish.",
+      "date": null,
+      "consent_confirmed": false,
+      "media_status": "staged-awaiting-hosted-assets-and-consent",
+      "lighting_note": "Before and after were captured under different lighting and backgrounds; public copy should describe visible changes without overstating treatment effects.",
+      "service_confirmation_required": true,
+      "related_review_ids": [],
+      "featured": true
+    }
+  ],
   "schema": {
     "id": "string",
     "title": "string",
@@ -10,9 +46,21 @@
     "before_alt": "string",
     "after_image": "string path or URL",
     "after_alt": "string",
+    "before_video": "string path or URL or null",
+    "after_video": "string path or URL or null",
+    "source_media": {
+      "before_photo": "original source filename or null",
+      "after_photo": "original source filename or null",
+      "before_video": "original source filename or null",
+      "after_video": "original source filename or null"
+    },
     "caption": "string",
+    "description": "string",
     "date": "YYYY-MM-DD or null",
     "consent_confirmed": "boolean",
+    "media_status": "string",
+    "lighting_note": "string or null",
+    "service_confirmation_required": "boolean",
     "related_review_ids": ["review id from data/reviews.json"],
     "featured": "boolean"
   }
