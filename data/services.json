@@ -1,0 +1,23 @@
+{
+  "business": "I Glow Beauty Bar",
+  "source_id": "vagaro-services-seed-001",
+  "source_url": "https://www.vagaro.com/iglowbeautybar/services",
+  "source_label": "Vagaro services catalog",
+  "status": "seeded_category_level",
+  "verification_policy": "Use the Vagaro services catalog as the primary authority for public service names, descriptions, durations, prices, staff associations, and booking links. Because prices and availability may change, preserve source links and refresh before presenting time-sensitive details.",
+  "verified_categories": [
+    "Medical Spa",
+    "Hair",
+    "Lashes",
+    "Nails",
+    "Skin Care",
+    "Makeup",
+    "Permanent Makeup",
+    "Waxing",
+    "Laser Hair Removal",
+    "Tattoo Removal",
+    "Brows"
+  ],
+  "services": [],
+  "notes": "Category-level coverage is corroborated by Vagaro's indexed Fredericksburg listings for IGlow Beauty Bar. Detailed individual service records remain pending direct import from the business services page."
+}
