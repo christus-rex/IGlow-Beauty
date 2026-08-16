@@ -36,6 +36,43 @@
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
+    },
+    {
+      "id": "BA-002",
+      "title": "Brunette Highlights",
+      "service": "Brunette Highlights",
+      "service_tags": [
+        "hair",
+        "brunette highlights",
+        "dimensional brunette",
+        "caramel highlights",
+        "styling"
+      ],
+      "customer_label": "Client BA-002",
+      "before_image": "https://static.wixstatic.com/media/237855_03c4d9570bb94e12967886176f37af1b~mv2.jpg",
+      "before_alt": "Before highlighting showing long dark brunette hair with subtle warm undertones and natural texture.",
+      "after_image": "https://static.wixstatic.com/media/237855_da4544bf3b524ec9a5e5619dbd38da23~mv2.jpg",
+      "after_alt": "After highlighting showing glossy brunette hair with warm caramel-dimensional highlights and polished waves.",
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "9273.heic",
+        "after_photo": "9271.heic",
+        "before_video": null,
+        "after_video": null
+      },
+      "source_resolution": "1152x1536",
+      "caption": "Brunette Highlights: dimensional warm ribbons through a deep brunette base, finished in polished waves.",
+      "description": "A brunette highlight transformation adding warm caramel dimension through a deep brunette base, finished with glossy, polished waves.",
+      "date": "2026-08-15",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Published following the project owner's explicit instruction to add these images to the website and publish on 2026-08-15.",
+      "media_status": "published-high-resolution-photo-comparison",
+      "lighting_note": "Before and after were captured under different lighting and styling; public copy describes visible color and styling changes without overstating treatment effects.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
     }
   ],
   "schema": {
