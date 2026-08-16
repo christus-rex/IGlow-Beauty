@@ -30,8 +30,10 @@ jobs:
           python -m pip install --quiet Pillow
           python - <<'PY'
           import hashlib
+          import io
           import json
           import re
+          import urllib.request
           from pathlib import Path
           from PIL import Image
 
@@ -54,24 +56,36 @@ jobs:
                   ref = item.get(field)
                   if not ref:
                       raise SystemExit(f'{item_id}: missing {field}.')
+
                   if ref.startswith(('http://', 'https://')):
-                      raise SystemExit(f'{item_id}: {field} must be a repository-hosted original so fidelity can be verified.')
+                      request = urllib.request.Request(ref, headers={'User-Agent': 'iGlow-media-fidelity-check/1.0'})
+                      with urllib.request.urlopen(request, timeout=30) as response:
+                          payload = response.read()
+                      with Image.open(io.BytesIO(payload)) as image:
+                          image.load()
+                          actual = image.size
+                      label = ref
+                      size = len(payload)
+                      digest = hashlib.sha256(payload).hexdigest()[:16]
+                  else:
+                      path = Path(ref.removeprefix('./'))
+                      if not path.is_file():
+                          raise SystemExit(f'{item_id}: missing customer image {path}.')
+                      payload = path.read_bytes()
+                      with Image.open(io.BytesIO(payload)) as image:
+                          image.load()
+                          actual = image.size
+                      label = str(path)
+                      size = len(payload)
+                      digest = hashlib.sha256(payload).hexdigest()[:16]
 
-                  path = Path(ref.removeprefix('./'))
-                  if not path.is_file():
-                      raise SystemExit(f'{item_id}: missing customer image {path}.')
-
-                  with Image.open(path) as image:
-                      image.load()
-                      actual = image.size
                   if actual != expected:
                       raise SystemExit(
-                          f'{item_id}: {path} expected {expected[0]}x{expected[1]}, got {actual[0]}x{actual[1]}; '
+                          f'{item_id}: {label} expected {expected[0]}x{expected[1]}, got {actual[0]}x{actual[1]}; '
                           'refusing to resize, upscale, recompress, or publish a lower-resolution substitute.'
                       )
 
-                  digest = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
-                  print(f'{item_id}: {field} verified {actual[0]}x{actual[1]} • sha256 {digest} • {path.stat().st_size:,} bytes')
+                  print(f'{item_id}: {field} verified {actual[0]}x{actual[1]} • sha256 {digest} • {size:,} bytes • {label}')
                   checked += 1
 
           print(f'Customer media fidelity check passed for {checked} published image(s). No image files were modified.')
