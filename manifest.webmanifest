@@ -1,7 +1,7 @@
 {
-  "name": "iGlow Beauty",
+  "name": "iGlow Beauty Bar",
   "short_name": "iGlow",
-  "description": "I Glow Beauty Bar customer reviews, results, studio story, and academy experience.",
+  "description": "I Glow Beauty Bar before-and-after transformation portfolio and academy experience in Fredericksburg, Virginia.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
