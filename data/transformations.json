@@ -73,6 +73,44 @@
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
+    },
+    {
+      "id": "BA-003",
+      "title": "Keratin Smoothing",
+      "service": "Keratin Treatment",
+      "service_tags": [
+        "hair",
+        "keratin treatment",
+        "smoothing",
+        "frizz reduction",
+        "straightening",
+        "shine"
+      ],
+      "customer_label": "Client BA-003",
+      "before_image": "https://static.wixstatic.com/media/237855_fd6ff74c40194b079fb10775a5e24d9d~mv2.png",
+      "before_alt": "Before keratin treatment showing textured, voluminous hair with visible frizz and uneven surface texture.",
+      "after_image": "https://static.wixstatic.com/media/237855_4460764175354578be6c06a9980a074a~mv2.png",
+      "after_alt": "After keratin treatment showing smooth, straight, glossy hair with a polished finish and reduced visible frizz.",
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "9289.heic",
+        "after_photo": "9290.heic",
+        "before_video": null,
+        "after_video": null
+      },
+      "source_resolution": "1152x1536",
+      "caption": "Keratin Treatment: from textured and frizz-prone to smooth, sleek, and glossy.",
+      "description": "A keratin smoothing transformation showing visibly reduced frizz, a smoother surface, straighter finish, and enhanced shine after styling.",
+      "date": "2026-08-16",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Published as part of the ongoing iGlow Beauty before-and-after portfolio workflow after the project owner supplied the images and identified the service as Keratin Treatment on 2026-08-16.",
+      "media_status": "published-high-resolution-photo-comparison",
+      "lighting_note": "Before and after were captured under different styling and framing; public copy describes visible cosmetic changes without overstating treatment effects.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
     }
   ],
   "schema": {
