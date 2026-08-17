@@ -134,6 +134,11 @@ function comparisonMarkup(item, priority = false) {
   </div>`;
 }
 
+function showcaseVideoPath(item) {
+  const id = String(item.id || '').trim().toLowerCase();
+  return id ? `./assets/videos/${id}.mp4` : '';
+}
+
 function renderTransformations() {
   if (!caseGrid) return;
   const visibleItems = publishableTransformations().filter(matchesTransformation);
@@ -147,13 +152,23 @@ function renderTransformations() {
   caseGrid.innerHTML = visibleItems.map((item, index) => {
     const tags = transformationTags(item).map((tag) => `<span>${escapeHtml(titleCase(tag))}</span>`).join('');
     const status = item.presentation_standard ? 'Standardized high-resolution presentation' : 'High-resolution client result';
+    const videoPath = showcaseVideoPath(item);
+    const title = item.title || 'Client result';
+    const videoMarkup = videoPath
+      ? `<div class="hero-actions">
+          <a class="button button-secondary" href="${escapeHtml(videoPath)}" download aria-label="Download 20-second before and after MP4 slideshow for ${escapeHtml(title)}">Download 20s MP4</a>
+        </div>
+        <p><small>10 seconds Before · 10 seconds After · service title subtly overlaid</small></p>`
+      : '';
+
     return `<article class="case-card">
       ${comparisonMarkup(item, index === 0)}
       <div class="case-copy">
         <div class="case-tags">${tags}</div>
-        <h3>${escapeHtml(item.title || 'Client result')}</h3>
+        <h3>${escapeHtml(title)}</h3>
         <p>${escapeHtml(item.caption || '')}</p>
         <span class="status-pill">${escapeHtml(status)}</span>
+        ${videoMarkup}
       </div>
     </article>`;
   }).join('');

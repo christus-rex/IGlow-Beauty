@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v22';
+const CACHE_NAME = 'iglow-beauty-v23';
 const INDEX_FALLBACK = './index.html';
 const APP_SHELL = [
   './',
@@ -72,6 +72,13 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(networkFirst(request, INDEX_FALLBACK));
+    return;
+  }
+
+  if (url.pathname.endsWith('.mp4')) {
+    // Showcase MP4 downloads are generated during deployment and can be large.
+    // Stream them directly so the app-shell cache is not filled with video files.
+    event.respondWith(fetch(request));
     return;
   }
 
