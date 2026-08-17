@@ -9,7 +9,6 @@ const portfolioFinder = document.querySelector('#portfolioFinder');
 
 let deferredInstallPrompt = null;
 let transformationArchive = [];
-let enhancementArchive = {};
 let searchTerm = '';
 
 const escapeHtml = (value = '') => String(value)
@@ -26,78 +25,6 @@ const initialService = normalize(new URLSearchParams(window.location.search).get
 let activeFilter = initialService || 'all';
 
 if (year) year.textContent = new Date().getFullYear();
-
-function injectEnhancementStyles() {
-  if (document.querySelector('#enhancedPortfolioStyles')) return;
-  const style = document.createElement('style');
-  style.id = 'enhancedPortfolioStyles';
-  style.textContent = `
-    .enhanced-presentation {
-      padding: 0 1rem 1.2rem;
-    }
-    .enhanced-presentation-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: .75rem;
-      margin: .15rem 0 .7rem;
-    }
-    .enhanced-presentation-head strong {
-      font-size: .86rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .enhanced-presentation-head span {
-      font-size: .72rem;
-      opacity: .72;
-    }
-    .enhanced-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: .7rem;
-    }
-    .enhanced-gallery figure {
-      margin: 0;
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      border: 1px solid rgba(210, 179, 95, .26);
-      background: rgba(255,255,255,.035);
-    }
-    .enhanced-gallery img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-    .enhanced-gallery figcaption {
-      position: absolute;
-      left: .55rem;
-      bottom: .55rem;
-      padding: .3rem .5rem;
-      border-radius: 999px;
-      background: rgba(15, 12, 15, .76);
-      color: #fff;
-      font-size: .68rem;
-      line-height: 1;
-      backdrop-filter: blur(8px);
-    }
-    .enhanced-presentation-note {
-      margin: .65rem 0 0;
-      font-size: .72rem;
-      line-height: 1.45;
-      opacity: .7;
-    }
-    @media (max-width: 560px) {
-      .enhanced-presentation { padding-inline: .8rem; }
-      .enhanced-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .enhanced-presentation-head { align-items: flex-start; flex-direction: column; gap: .2rem; }
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-injectEnhancementStyles();
 
 function injectMeetIGlow() {
   const academySection = document.querySelector('#studio-academy');
@@ -214,8 +141,9 @@ function buildFilterChips() {
   }).join('');
 }
 
-function sourceDimensions(item) {
-  const match = String(item.source_resolution || '').match(/^(\d+)[xX](\d+)$/);
+function publishedDimensions(item) {
+  const declared = item.published_resolution || item.source_resolution || '';
+  const match = String(declared).match(/^(\d+)[xX](\d+)$/);
   return match ? { width: match[1], height: match[2] } : null;
 }
 
@@ -223,7 +151,7 @@ function comparisonMarkup(item, priority = false) {
   const title = item.title || 'Client result';
   const beforeAlt = item.before_alt || `Before ${title}`;
   const afterAlt = item.after_alt || `After ${title}`;
-  const dimensions = sourceDimensions(item);
+  const dimensions = publishedDimensions(item);
   const sizeAttrs = dimensions ? ` width="${dimensions.width}" height="${dimensions.height}"` : '';
   const loading = priority ? 'eager' : 'lazy';
   const fetchPriority = priority ? ' fetchpriority="high"' : '';
@@ -238,27 +166,6 @@ function comparisonMarkup(item, priority = false) {
   </div>`;
 }
 
-function enhancedPresentationMarkup(item) {
-  const enhanced = enhancementArchive[item.id];
-  const images = Array.isArray(enhanced?.images) ? enhanced.images.filter((entry) => entry?.image) : [];
-  if (!images.length) return '';
-
-  const gallery = images.map((entry) => `
-    <figure>
-      <img src="${escapeHtml(entry.image)}" alt="${escapeHtml(entry.alt || `${item.title || 'Client result'} enhanced presentation view`)}" width="1086" height="1448" loading="lazy" decoding="async" />
-      <figcaption>${escapeHtml(entry.label || 'Enhanced view')}</figcaption>
-    </figure>`).join('');
-
-  return `<section class="enhanced-presentation" aria-label="Enhanced presentation views for ${escapeHtml(item.title || 'client result')}">
-    <div class="enhanced-presentation-head">
-      <strong>Enhanced Views</strong>
-      <span>Clean background · HDR presentation</span>
-    </div>
-    <div class="enhanced-gallery">${gallery}</div>
-    ${enhanced.presentation_note ? `<p class="enhanced-presentation-note">${escapeHtml(enhanced.presentation_note)}</p>` : ''}
-  </section>`;
-}
-
 function renderTransformations() {
   if (!caseGrid) return;
   const visibleItems = publishableTransformations().filter(matchesTransformation);
@@ -271,15 +178,15 @@ function renderTransformations() {
 
   caseGrid.innerHTML = visibleItems.map((item, index) => {
     const tags = transformationTags(item).map((tag) => `<span>${escapeHtml(titleCase(tag))}</span>`).join('');
+    const status = item.presentation_standard ? 'Standardized high-resolution presentation' : 'High-resolution client result';
     return `<article class="case-card">
       ${comparisonMarkup(item, index === 0)}
       <div class="case-copy">
         <div class="case-tags">${tags}</div>
         <h3>${escapeHtml(item.title || 'Client result')}</h3>
         <p>${escapeHtml(item.caption || '')}</p>
-        <span class="status-pill">High-resolution client result</span>
+        <span class="status-pill">${escapeHtml(status)}</span>
       </div>
-      ${enhancedPresentationMarkup(item)}
     </article>`;
   }).join('');
 }
@@ -303,12 +210,8 @@ function renderPortfolio() {
 
 async function loadPortfolio() {
   try {
-    const [transformationData, enhancementData] = await Promise.all([
-      getJson('./data/transformations.json'),
-      getJson('./data/enhanced-transformations.json').catch(() => ({ enhanced_transformations: {} }))
-    ]);
+    const transformationData = await getJson('./data/transformations.json');
     transformationArchive = Array.isArray(transformationData.transformations) ? transformationData.transformations : [];
-    enhancementArchive = enhancementData?.enhanced_transformations || {};
     renderPortfolio();
   } catch (error) {
     console.warn(error);
@@ -360,7 +263,8 @@ window.addEventListener('appinstalled', () => {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
-      await navigator.serviceWorker.register('./sw.js');
+      const registration = await navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' });
+      registration.update().catch(() => {});
     } catch (error) {
       console.warn('Service worker registration failed:', error);
     }
