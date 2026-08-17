@@ -50,9 +50,9 @@
         "styling"
       ],
       "customer_label": "Client BA-002",
-      "before_image": "https://static.wixstatic.com/media/237855_03c4d9570bb94e12967886176f37af1b~mv2.jpg",
+      "before_image": "https://static.wixstatic.com/media/237855_f410f25ed1b2482f935d1da5a79e07c8~mv2.png",
       "before_alt": "Before balayage showing long dark brunette hair with subtle warm undertones and natural texture.",
-      "after_image": "https://static.wixstatic.com/media/237855_da4544bf3b524ec9a5e5619dbd38da23~mv2.jpg",
+      "after_image": "https://static.wixstatic.com/media/237855_4ca8e09c875e4630947e5fd05db420ab~mv2.png",
       "after_alt": "After balayage showing glossy brunette hair with warm caramel dimension and polished waves.",
       "before_video": null,
       "after_video": null,
@@ -63,14 +63,16 @@
         "after_video": null
       },
       "source_resolution": "1152x1536",
+      "published_resolution": "1086x1448",
+      "presentation_standard": "iGlow Beauty Bar global portfolio standard v1",
       "caption": "Balayage: warm caramel ribbons through a deep brunette base, finished in glossy waves.",
       "description": "A brunette balayage transformation adding warm caramel dimension through a deep brunette base with a polished, high-shine finish.",
       "date": "2026-08-15",
       "consent_confirmed": true,
       "publication_authorized": true,
-      "publication_authorization_note": "Originally published from the supplied before-and-after pair and reclassified as Balayage at the project owner's direction on 2026-08-16.",
-      "media_status": "published-high-resolution-photo-comparison",
-      "lighting_note": "Before and after were captured under different lighting and styling; public copy describes visible color and styling changes without overstating treatment effects.",
+      "publication_authorization_note": "Originally published from the supplied before-and-after pair and reclassified as Balayage at the project owner's direction on 2026-08-16. Standardized web presentation published on 2026-08-16.",
+      "media_status": "published-standardized-web-derivatives; original source masters retained",
+      "lighting_note": "Original salon setting retained. Web derivatives use soft optical-style background blur, restrained HDR-style tonal balancing, sharp hair detail, and the approved iGlow Beauty Bar / By Claudia watermark.",
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
@@ -88,9 +90,9 @@
         "shine"
       ],
       "customer_label": "Client BA-003",
-      "before_image": "https://static.wixstatic.com/media/237855_7d65d81172ff4313a59843e278eae487~mv2.jpeg",
+      "before_image": "https://static.wixstatic.com/media/237855_4335e87a8fbc4bff81e456af8d200def~mv2.png",
       "before_alt": "Before keratin treatment showing textured, voluminous hair with visible frizz and uneven surface texture.",
-      "after_image": "https://static.wixstatic.com/media/237855_a5175f1fc548443b8dcf6d75a3e74df4~mv2.jpeg",
+      "after_image": "https://static.wixstatic.com/media/237855_68a34bcaa48c48959d945f336694639c~mv2.png",
       "after_alt": "After keratin treatment showing smooth, straight, glossy hair with a polished finish and reduced visible frizz.",
       "before_video": null,
       "after_video": null,
@@ -101,14 +103,16 @@
         "after_video": null
       },
       "source_resolution": "1152x1536",
+      "published_resolution": "1086x1448",
+      "presentation_standard": "iGlow Beauty Bar global portfolio standard v1",
       "caption": "Keratin Treatment: from textured and frizz-prone to smooth, sleek, and glossy.",
       "description": "A keratin smoothing transformation showing visibly reduced frizz, a smoother surface, straighter finish, and enhanced shine after styling.",
       "date": "2026-08-16",
       "consent_confirmed": true,
       "publication_authorized": true,
-      "publication_authorization_note": "Published as part of the ongoing iGlow Beauty before-and-after portfolio workflow after the project owner supplied the images and identified the service as Keratin Treatment on 2026-08-16.",
-      "media_status": "published-high-resolution-photo-comparison",
-      "lighting_note": "Before and after were captured under different styling and framing; public copy describes visible cosmetic changes without overstating treatment effects.",
+      "publication_authorization_note": "Published as part of the ongoing iGlow Beauty before-and-after portfolio workflow after the project owner supplied the images and identified the service as Keratin Treatment on 2026-08-16. Standardized web presentation published on 2026-08-16.",
+      "media_status": "published-standardized-web-derivatives; original source masters retained",
+      "lighting_note": "Original salon setting retained. Before treatment receives lighter documentary processing; after treatment receives the refined presentation finish. Both use soft optical-style background blur, restrained HDR-style tonal balancing, sharp hair detail, and the approved watermark.",
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
@@ -126,16 +130,17 @@
         "styling"
       ],
       "customer_label": "Client BA-004",
-      "before_image": "https://static.wixstatic.com/media/237855_bbfbfa1fee8d4c5181593a643e514f2a~mv2.jpeg",
+      "before_image": "https://static.wixstatic.com/media/237855_170389dc0f18419c8b55dfcc9fbb57be~mv2.png",
       "before_alt": "Before balayage showing long hair with a dark root area and warmer golden lengths.",
-      "after_image": "https://static.wixstatic.com/media/237855_3650379dd3624d0ab32af7a356bc2f30~mv2.jpeg",
+      "after_image": "https://static.wixstatic.com/media/237855_48671b2a54ac4c74a0f4b9b2f3ac42e5~mv2.png",
       "after_alt": "After balayage showing cool dimensional blonde and ash ribbons through a darker base with polished waves.",
       "additional_after_images": [
         {
-          "image": "https://static.wixstatic.com/media/237855_5f146ebccc1e4066a2100956e6e84143~mv2.jpeg",
-          "alt": "Alternate after view of the cool blonde balayage showing the dimensional ash-blonde blend from the back.",
+          "image": "https://static.wixstatic.com/media/237855_b3e8e512e1a140389e547441d3bf6cdf~mv2.png",
+          "alt": "Alternate standardized after view of the cool blonde balayage showing the dimensional ash-blonde blend from the back.",
           "source_photo": "9293.heic",
-          "source_resolution": "1011x1536"
+          "source_resolution": "1011x1536",
+          "published_resolution": "1086x1448"
         }
       ],
       "before_video": null,
@@ -147,14 +152,16 @@
         "after_video": null
       },
       "source_resolution": "1152x1536",
+      "published_resolution": "1086x1448",
+      "presentation_standard": "iGlow Beauty Bar global portfolio standard v1",
       "caption": "Balayage: warmer lengths refined into a cool, dimensional blonde blend with soft contrast and shine.",
       "description": "A cool-toned balayage transformation balancing a deeper base with ash and blonde dimension, finished in polished waves. An additional full-back after view is retained with the case.",
       "date": "2026-08-16",
       "consent_confirmed": true,
       "publication_authorized": true,
-      "publication_authorization_note": "Added after the project owner supplied the source images and requested three portfolio entries identified as Balayage, Balayage, and Color Correction on 2026-08-16.",
-      "media_status": "published-high-resolution-photo-comparison; alternate after view retained with case",
-      "lighting_note": "Before and after were captured under different lighting and styling; public copy focuses on the visible shift in tone, dimension, and finish.",
+      "publication_authorization_note": "Added after the project owner supplied the source images and requested three portfolio entries identified as Balayage, Balayage, and Color Correction on 2026-08-16. Standardized web presentation published on 2026-08-16.",
+      "media_status": "published-standardized-web-derivatives; alternate after view retained; original source masters retained",
+      "lighting_note": "Original salon setting retained. Web derivatives use soft optical-style background blur, restrained HDR-style tonal balancing, sharp hair detail, and the approved iGlow Beauty Bar / By Claudia watermark.",
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
@@ -172,9 +179,9 @@
         "styling"
       ],
       "customer_label": "Client BA-005",
-      "before_image": "https://static.wixstatic.com/media/237855_21d7ee3cdc1d4fde83a52bd5bd6d9efa~mv2.jpeg",
+      "before_image": "https://static.wixstatic.com/media/237855_932c603d11f741ffbbba8450c126bc7e~mv2.png",
       "before_alt": "Before color correction showing long brunette hair with mixed warm tones through the lengths.",
-      "after_image": "https://static.wixstatic.com/media/237855_0546723ef55d47afa61dbd107f096e3b~mv2.jpeg",
+      "after_image": "https://static.wixstatic.com/media/237855_ad02ca3f37bc437aa95e03a6286c7599~mv2.png",
       "after_alt": "After color correction showing a rich, even copper-auburn finish with soft waves and a polished cut.",
       "before_video": null,
       "after_video": null,
@@ -185,14 +192,16 @@
         "after_video": null
       },
       "source_resolution": "1152x1536",
+      "published_resolution": "1086x1448",
+      "presentation_standard": "iGlow Beauty Bar global portfolio standard v1",
       "caption": "Color Correction: mixed brunette warmth transformed into a rich, even copper-auburn finish.",
       "description": "A color-correction transformation moving from mixed brunette warmth to a more uniform copper-auburn result, finished with a polished cut and soft movement.",
       "date": "2026-08-16",
       "consent_confirmed": true,
       "publication_authorized": true,
-      "publication_authorization_note": "Added after the project owner supplied the source images and requested three portfolio entries identified as Balayage, Balayage, and Color Correction on 2026-08-16.",
-      "media_status": "published-high-resolution-photo-comparison",
-      "lighting_note": "Before and after were captured with different framing, lighting, and styling; the portfolio copy describes only the visible color and finish changes.",
+      "publication_authorization_note": "Added after the project owner supplied the source images and requested three portfolio entries identified as Balayage, Balayage, and Color Correction on 2026-08-16. Standardized web presentation published on 2026-08-16.",
+      "media_status": "published-standardized-web-derivatives; original source masters retained",
+      "lighting_note": "Original salon setting retained. Web derivatives use soft optical-style background blur, restrained HDR-style tonal balancing, sharp hair detail, and the approved iGlow Beauty Bar / By Claudia watermark.",
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
@@ -202,7 +211,9 @@
     "id": "string",
     "title": "string",
     "service": "string",
-    "service_tags": ["string"],
+    "service_tags": [
+      "string"
+    ],
     "customer_label": "string",
     "before_image": "string path or URL",
     "before_alt": "string",
@@ -213,7 +224,8 @@
         "image": "string path or URL",
         "alt": "string",
         "source_photo": "original source filename or null",
-        "source_resolution": "string or null"
+        "source_resolution": "string or null",
+        "published_resolution": "string or null"
       }
     ],
     "before_video": "string path or URL or null",
@@ -225,6 +237,8 @@
       "after_video": "original source filename or null"
     },
     "source_resolution": "string or null",
+    "published_resolution": "string or null",
+    "presentation_standard": "string or null",
     "caption": "string",
     "description": "string",
     "date": "YYYY-MM-DD or null",
@@ -234,7 +248,9 @@
     "media_status": "string",
     "lighting_note": "string or null",
     "service_confirmation_required": "boolean",
-    "related_review_ids": ["review id from data/reviews.json"],
+    "related_review_ids": [
+      "review id from data/reviews.json"
+    ],
     "featured": "boolean"
   }
 }
