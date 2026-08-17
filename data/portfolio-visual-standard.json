@@ -1,0 +1,51 @@
+{
+  "name": "iGlow Beauty Bar global portfolio standard",
+  "version": 1,
+  "approved": true,
+  "approved_date": "2026-08-16",
+  "applies_to": "All current and future client portfolio imagery unless explicitly overridden for a specific set.",
+  "background": {
+    "preserve_original_salon_environment": true,
+    "treatment": "soft natural optical-style background blur",
+    "blend_edges_naturally": true,
+    "replace_or_clean_background": false
+  },
+  "hair": {
+    "keep_fully_sharp": true,
+    "preserve_fine_strands": true,
+    "preserve_flyaways": true,
+    "preserve_curl_and_wave_pattern": true,
+    "preserve_color_transitions": true,
+    "avoid_ai_smoothing_or_shape_changes": true
+  },
+  "tone": {
+    "treatment": "restrained HDR-style tonal balancing",
+    "preserve_natural_color": true,
+    "avoid_oversaturation": true,
+    "retain_highlight_and_shadow_detail": true
+  },
+  "before_images": {
+    "processing": "lighter documentary treatment",
+    "purpose": "truthful baseline presentation"
+  },
+  "after_images": {
+    "processing": "refined premium finish",
+    "purpose": "show the finished service clearly without altering the actual work"
+  },
+  "watermark": {
+    "line_1": "iGlow Beauty Bar",
+    "line_2": "By Claudia",
+    "position": "lower-right",
+    "color": "gold",
+    "opacity": "semi-transparent",
+    "scale": "consistent across portfolio",
+    "must_not_obstruct_hair": true
+  },
+  "publishing": {
+    "retain_original_source_masters": true,
+    "publish_optimized_derivatives": true,
+    "preferred_aspect_ratio": "3:4",
+    "protect_hair_center_when_cropping": true,
+    "avoid_aggressive_top_or_bottom_crop": true
+  }
+}
