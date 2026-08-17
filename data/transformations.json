@@ -39,20 +39,21 @@
     },
     {
       "id": "BA-002",
-      "title": "Brunette Highlights",
-      "service": "Brunette Highlights",
+      "title": "Caramel Balayage",
+      "service": "Balayage",
       "service_tags": [
         "hair",
-        "brunette highlights",
-        "dimensional brunette",
+        "balayage",
+        "brunette balayage",
         "caramel highlights",
+        "dimensional brunette",
         "styling"
       ],
       "customer_label": "Client BA-002",
       "before_image": "https://static.wixstatic.com/media/237855_03c4d9570bb94e12967886176f37af1b~mv2.jpg",
-      "before_alt": "Before highlighting showing long dark brunette hair with subtle warm undertones and natural texture.",
+      "before_alt": "Before balayage showing long dark brunette hair with subtle warm undertones and natural texture.",
       "after_image": "https://static.wixstatic.com/media/237855_da4544bf3b524ec9a5e5619dbd38da23~mv2.jpg",
-      "after_alt": "After highlighting showing glossy brunette hair with warm caramel-dimensional highlights and polished waves.",
+      "after_alt": "After balayage showing glossy brunette hair with warm caramel dimension and polished waves.",
       "before_video": null,
       "after_video": null,
       "source_media": {
@@ -62,12 +63,12 @@
         "after_video": null
       },
       "source_resolution": "1152x1536",
-      "caption": "Brunette Highlights: dimensional warm ribbons through a deep brunette base, finished in polished waves.",
-      "description": "A brunette highlight transformation adding warm caramel dimension through a deep brunette base, finished with glossy, polished waves.",
+      "caption": "Balayage: warm caramel ribbons through a deep brunette base, finished in glossy waves.",
+      "description": "A brunette balayage transformation adding warm caramel dimension through a deep brunette base with a polished, high-shine finish.",
       "date": "2026-08-15",
       "consent_confirmed": true,
       "publication_authorized": true,
-      "publication_authorization_note": "Published following the project owner's explicit instruction to add these images to the website and publish on 2026-08-15.",
+      "publication_authorization_note": "Originally published from the supplied before-and-after pair and reclassified as Balayage at the project owner's direction on 2026-08-16.",
       "media_status": "published-high-resolution-photo-comparison",
       "lighting_note": "Before and after were captured under different lighting and styling; public copy describes visible color and styling changes without overstating treatment effects.",
       "service_confirmation_required": false,
@@ -111,6 +112,90 @@
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
+    },
+    {
+      "id": "BA-004",
+      "title": "Cool Blonde Balayage",
+      "service": "Balayage",
+      "service_tags": [
+        "hair",
+        "balayage",
+        "cool blonde",
+        "ash blonde",
+        "dimensional highlights",
+        "styling"
+      ],
+      "customer_label": "Client BA-004",
+      "before_image": "https://static.wixstatic.com/media/237855_bbfbfa1fee8d4c5181593a643e514f2a~mv2.jpeg",
+      "before_alt": "Before balayage showing long hair with a dark root area and warmer golden lengths.",
+      "after_image": "https://static.wixstatic.com/media/237855_3650379dd3624d0ab32af7a356bc2f30~mv2.jpeg",
+      "after_alt": "After balayage showing cool dimensional blonde and ash ribbons through a darker base with polished waves.",
+      "additional_after_images": [
+        {
+          "image": "https://static.wixstatic.com/media/237855_5f146ebccc1e4066a2100956e6e84143~mv2.jpeg",
+          "alt": "Alternate after view of the cool blonde balayage showing the dimensional ash-blonde blend from the back.",
+          "source_photo": "9293.heic",
+          "source_resolution": "1011x1536"
+        }
+      ],
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "9294.heic",
+        "after_photo": "9297.heic",
+        "before_video": null,
+        "after_video": null
+      },
+      "source_resolution": "1152x1536",
+      "caption": "Balayage: warmer lengths refined into a cool, dimensional blonde blend with soft contrast and shine.",
+      "description": "A cool-toned balayage transformation balancing a deeper base with ash and blonde dimension, finished in polished waves. An additional full-back after view is retained with the case.",
+      "date": "2026-08-16",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Added after the project owner supplied the source images and requested three portfolio entries identified as Balayage, Balayage, and Color Correction on 2026-08-16.",
+      "media_status": "published-high-resolution-photo-comparison; alternate after view retained with case",
+      "lighting_note": "Before and after were captured under different lighting and styling; public copy focuses on the visible shift in tone, dimension, and finish.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
+    },
+    {
+      "id": "BA-005",
+      "title": "Copper Color Correction",
+      "service": "Color Correction",
+      "service_tags": [
+        "hair",
+        "color correction",
+        "copper hair",
+        "auburn hair",
+        "tone correction",
+        "styling"
+      ],
+      "customer_label": "Client BA-005",
+      "before_image": "https://static.wixstatic.com/media/237855_21d7ee3cdc1d4fde83a52bd5bd6d9efa~mv2.jpeg",
+      "before_alt": "Before color correction showing long brunette hair with mixed warm tones through the lengths.",
+      "after_image": "https://static.wixstatic.com/media/237855_0546723ef55d47afa61dbd107f096e3b~mv2.jpeg",
+      "after_alt": "After color correction showing a rich, even copper-auburn finish with soft waves and a polished cut.",
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "9296.heic",
+        "after_photo": "9299.heic",
+        "before_video": null,
+        "after_video": null
+      },
+      "source_resolution": "1152x1536",
+      "caption": "Color Correction: mixed brunette warmth transformed into a rich, even copper-auburn finish.",
+      "description": "A color-correction transformation moving from mixed brunette warmth to a more uniform copper-auburn result, finished with a polished cut and soft movement.",
+      "date": "2026-08-16",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Added after the project owner supplied the source images and requested three portfolio entries identified as Balayage, Balayage, and Color Correction on 2026-08-16.",
+      "media_status": "published-high-resolution-photo-comparison",
+      "lighting_note": "Before and after were captured with different framing, lighting, and styling; the portfolio copy describes only the visible color and finish changes.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
     }
   ],
   "schema": {
@@ -123,6 +208,14 @@
     "before_alt": "string",
     "after_image": "string path or URL",
     "after_alt": "string",
+    "additional_after_images": [
+      {
+        "image": "string path or URL",
+        "alt": "string",
+        "source_photo": "original source filename or null",
+        "source_resolution": "string or null"
+      }
+    ],
     "before_video": "string path or URL or null",
     "after_video": "string path or URL or null",
     "source_media": {
