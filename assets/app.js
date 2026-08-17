@@ -26,38 +26,6 @@ let activeFilter = initialService || 'all';
 
 if (year) year.textContent = new Date().getFullYear();
 
-function injectMeetIGlow() {
-  const academySection = document.querySelector('#studio-academy');
-  const mediaGrid = academySection?.querySelector('.academy-media-grid');
-  if (!academySection || !mediaGrid || academySection.querySelector('.meet-iglow-feature')) return;
-
-  const feature = document.createElement('article');
-  feature.className = 'meet-iglow-feature';
-  feature.innerHTML = `
-    <div class="meet-iglow-copy">
-      <span class="media-kicker">MEET IGLOW</span>
-      <h3>Beauty, confidence &amp; care—under one roof.</h3>
-      <p>Meet the professionals behind the I Glow Beauty Bar experience. Team information stays separate from the client transformation portfolio.</p>
-      <div class="meet-iglow-values" aria-label="I Glow Beauty Bar highlights">
-        <span>Passionate professionals</span>
-        <span>Personalized care</span>
-        <span>Client-focused experience</span>
-      </div>
-    </div>
-    <div class="meet-iglow-gallery" aria-label="I Glow Beauty Bar team">
-      <figure class="meet-iglow-team">
-        <img src="https://iglowbeautybar.com/wp-content/uploads/2024/12/staff-iglow-beauty-bar-1024x1024.jpg" width="1024" height="1024" loading="lazy" decoding="async" alt="I Glow Beauty Bar team" />
-        <figcaption><strong>Our Team</strong><span>The professionals behind the glow.</span></figcaption>
-      </figure>
-    </div>`;
-
-  const teamImage = feature.querySelector('img');
-  teamImage?.addEventListener('error', () => feature.remove(), { once: true });
-  mediaGrid.after(feature);
-}
-
-injectMeetIGlow();
-
 async function getJson(path) {
   const response = await fetch(path, { cache: 'no-store' });
   if (!response.ok) throw new Error(`${path} failed: ${response.status}`);
