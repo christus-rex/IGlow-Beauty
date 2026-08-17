@@ -1,57 +1,6 @@
 {
-  "enhanced_transformations": {
-    "BA-002": {
-      "presentation_note": "Background-cleaned and HDR-enhanced presentation views. Original client photography remains the primary before-and-after comparison.",
-      "images": [
-        {
-          "image": "https://static.wixstatic.com/media/237855_9511016fd12649f3b2eb742ef4639b38~mv2.png",
-          "alt": "Background-cleaned HDR-enhanced before presentation view for the Caramel Balayage transformation.",
-          "label": "Before · Enhanced"
-        },
-        {
-          "image": "https://static.wixstatic.com/media/237855_1d6b0fd30ff147b7bc8e39cd4e0a240e~mv2.png",
-          "alt": "Background-cleaned HDR-enhanced after presentation view for the Caramel Balayage transformation, watermarked iGlow Beauty Bar By Claudia.",
-          "label": "After · Enhanced"
-        }
-      ]
-    },
-    "BA-004": {
-      "presentation_note": "Background-cleaned and HDR-enhanced presentation views. Original client photography remains the primary before-and-after comparison.",
-      "images": [
-        {
-          "image": "https://static.wixstatic.com/media/237855_9684c5b24ee64d7a8987ed75d876b2b0~mv2.png",
-          "alt": "Background-cleaned HDR-enhanced before presentation view for the Cool Blonde Balayage transformation.",
-          "label": "Before · Enhanced"
-        },
-        {
-          "image": "https://static.wixstatic.com/media/237855_e75c87b5abb348458dcd316a235bffde~mv2.png",
-          "alt": "Background-cleaned HDR-enhanced after presentation view for the Cool Blonde Balayage transformation, watermarked iGlow Beauty Bar By Claudia.",
-          "label": "After · Enhanced"
-        },
-        {
-          "image": "https://static.wixstatic.com/media/237855_7baebe4c097b4680acfd1bed5ea86540~mv2.png",
-          "alt": "Alternate background-cleaned HDR-enhanced after view for the Cool Blonde Balayage transformation, watermarked iGlow Beauty Bar By Claudia.",
-          "label": "After Detail · Enhanced"
-        }
-      ]
-    },
-    "BA-005": {
-      "presentation_note": "Background-cleaned and HDR-enhanced presentation views. Original client photography remains the primary before-and-after comparison.",
-      "images": [
-        {
-          "image": "https://static.wixstatic.com/media/237855_77f85d237572482aaa2c603464f9fc1d~mv2.png",
-          "alt": "Background-cleaned HDR-enhanced before presentation view for the Copper Color Correction transformation.",
-          "label": "Before · Enhanced"
-        },
-        {
-          "image": "https://static.wixstatic.com/media/237855_b79c94c5e6ae44219a82fa20fd30cdae~mv2.png",
-          "alt": "Background-cleaned HDR-enhanced after presentation view for the Copper Color Correction transformation, watermarked iGlow Beauty Bar By Claudia.",
-          "label": "After · Enhanced"
-        }
-      ]
-    }
-  },
-  "image_dimensions": "1086x1448",
-  "watermark": "iGlow Beauty Bar / By Claudia",
-  "presentation_only": true
+  "enhanced_transformations": {},
+  "status": "retired",
+  "retired_reason": "The former background-cleaned enhanced gallery was retired when the approved iGlow Beauty Bar global portfolio standard became the primary published presentation.",
+  "replacement_standard": "iGlow Beauty Bar global portfolio standard v1"
 }
