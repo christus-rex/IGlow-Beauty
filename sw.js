@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v19';
+const CACHE_NAME = 'iglow-beauty-v20';
 const INDEX_FALLBACK = './index.html';
 const APP_SHELL = [
   './',
@@ -85,8 +85,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (request.destination === 'image') {
-    // Preserve portfolio images exactly as served: no resizing, transcoding,
-    // recompression, or document fallback is introduced by the PWA cache.
+    // Cache local assets byte-for-byte as served; external portfolio media is
+    // intentionally left to its origin so this worker never transforms it.
     event.respondWith(cacheFirstExact(request));
     return;
   }
