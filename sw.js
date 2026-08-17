@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v21';
+const CACHE_NAME = 'iglow-beauty-v22';
 const INDEX_FALLBACK = './index.html';
 const APP_SHELL = [
   './',
@@ -6,17 +6,13 @@ const APP_SHELL = [
   './manifest.webmanifest',
   './assets/styles.css',
   './assets/proof.css',
-  './assets/studio-academy.css',
   './assets/theme.css',
   './assets/luxury.css',
   './assets/app.js',
   './assets/icon.svg',
   './assets/iglow-logo.svg',
-  './assets/academy-lash-brow.svg',
-  './assets/academy-hair.svg',
   './data/transformations.json',
-  './data/sources.json',
-  './data/studio-academy.json'
+  './data/sources.json'
 ];
 
 self.addEventListener('install', (event) => {
