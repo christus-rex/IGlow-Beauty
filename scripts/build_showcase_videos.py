@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Build 20-second downloadable before/after MP4 slideshows for published portfolio cases.
+"""Build 7-second downloadable before/after MP4 showcases for published portfolio cases.
 
-Each source image is shown for exactly 10 seconds. The case title is overlaid subtly,
-with a small BEFORE/AFTER cue. Source image files are never modified.
+Global iGlow video standard:
+- 3 seconds Before
+- 1 second crossfade transition
+- 3 seconds After
+- subtle service/title overlay plus BEFORE/AFTER cue
+
+Source image files are never modified.
 """
 
 from __future__ import annotations
@@ -21,8 +26,10 @@ CATALOG = ROOT / "data" / "transformations.json"
 WIDTH = 1080
 HEIGHT = 1440
 FPS = 30
-SEGMENT_SECONDS = 10
-EXPECTED_DURATION = SEGMENT_SECONDS * 2
+HOLD_SECONDS = 3
+TRANSITION_SECONDS = 1
+SEGMENT_SECONDS = HOLD_SECONDS + TRANSITION_SECONDS
+EXPECTED_DURATION = (HOLD_SECONDS * 2) + TRANSITION_SECONDS
 
 FONT_CANDIDATES = [
     Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
@@ -60,7 +67,7 @@ def resolve_media(ref: str, temp_dir: Path, label: str) -> Path:
         destination = temp_dir / f"{label}{suffix}"
         request = urllib.request.Request(
             ref,
-            headers={"User-Agent": "iGlow-showcase-video-builder/1.0"},
+            headers={"User-Agent": "iGlow-showcase-video-builder/2.0"},
         )
         with urllib.request.urlopen(request, timeout=60) as response:
             destination.write_bytes(response.read())
@@ -70,6 +77,62 @@ def resolve_media(ref: str, temp_dir: Path, label: str) -> Path:
     if not path.is_file():
         raise SystemExit(f"Missing local showcase source: {path}")
     return path
+
+
+def build_segment(
+    ffmpeg: str,
+    font: Path,
+    source: Path,
+    output: Path,
+    title: str,
+    cue: str,
+) -> None:
+    font_ref = escape_drawtext(str(font))
+    cue_ref = escape_drawtext(cue)
+    filter_chain = (
+        f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
+        f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,"
+        f"drawtext=fontfile='{font_ref}':text='{title}':"
+        "fontcolor=0xD4AF37@0.84:fontsize=42:"
+        "box=1:boxcolor=black@0.24:boxborderw=15:"
+        "x=(w-text_w)/2:y=42,"
+        f"drawtext=fontfile='{font_ref}':text='{cue_ref}':"
+        "fontcolor=white@0.82:fontsize=28:"
+        "box=1:boxcolor=black@0.28:boxborderw=11:"
+        "x=34:y=h-72,"
+        f"fps={FPS},format=yuv420p"
+    )
+
+    command = [
+        ffmpeg,
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-loop",
+        "1",
+        "-framerate",
+        str(FPS),
+        "-t",
+        str(SEGMENT_SECONDS),
+        "-i",
+        str(source),
+        "-vf",
+        filter_chain,
+        "-r",
+        str(FPS),
+        "-c:v",
+        "libx264",
+        "-preset",
+        "medium",
+        "-crf",
+        "23",
+        "-pix_fmt",
+        "yuv420p",
+        "-an",
+        str(output),
+    ]
+    subprocess.run(command, check=True)
 
 
 def build_case(ffmpeg: str, ffprobe: str, font: Path, item: dict) -> Path:
@@ -84,55 +147,33 @@ def build_case(ffmpeg: str, ffprobe: str, font: Path, item: dict) -> Path:
     output = ROOT / str(video_ref).removeprefix("./")
     output.parent.mkdir(parents=True, exist_ok=True)
     title = escape_drawtext(str(item.get("title") or item.get("service") or "Client Transformation"))
-    font_ref = escape_drawtext(str(font))
 
     with tempfile.TemporaryDirectory(prefix=f"iglow-{item_id.lower()}-") as temp_name:
         temp_dir = Path(temp_name)
         before = resolve_media(str(before_ref), temp_dir, "before")
         after = resolve_media(str(after_ref), temp_dir, "after")
+        before_segment = temp_dir / "before-segment.mp4"
+        after_segment = temp_dir / "after-segment.mp4"
 
-        common = (
-            f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
-            f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,"
-            f"drawtext=fontfile='{font_ref}':text='{title}':"
-            "fontcolor=0xD4AF37@0.84:fontsize=42:"
-            "box=1:boxcolor=black@0.24:boxborderw=15:"
-            "x=(w-text_w)/2:y=42,"
+        build_segment(ffmpeg, font, before, before_segment, title, "BEFORE")
+        build_segment(ffmpeg, font, after, after_segment, title, "AFTER")
+
+        transition_filter = (
+            f"[0:v][1:v]xfade=transition=fade:duration={TRANSITION_SECONDS}:"
+            f"offset={HOLD_SECONDS},format=yuv420p[v]"
         )
-        before_filter = (
-            common
-            + "drawtext=fontfile='{}':text='BEFORE':fontcolor=white@0.82:fontsize=28:"
-              "box=1:boxcolor=black@0.28:boxborderw=11:x=34:y=h-72,"
-              "fade=t=in:st=0:d=0.30,fade=t=out:st=9.70:d=0.30,setpts=PTS-STARTPTS[b]"
-        ).format(font_ref)
-        after_filter = (
-            common
-            + "drawtext=fontfile='{}':text='AFTER':fontcolor=white@0.82:fontsize=28:"
-              "box=1:boxcolor=black@0.28:boxborderw=11:x=34:y=h-72,"
-              "fade=t=in:st=0:d=0.30,fade=t=out:st=9.70:d=0.30,setpts=PTS-STARTPTS[a]"
-        ).format(font_ref)
-        filter_complex = f"[0:v]{before_filter};[1:v]{after_filter};[b][a]concat=n=2:v=1:a=0[v]"
-
         command = [
             ffmpeg,
             "-y",
             "-hide_banner",
             "-loglevel",
             "error",
-            "-loop",
-            "1",
-            "-t",
-            str(SEGMENT_SECONDS),
             "-i",
-            str(before),
-            "-loop",
-            "1",
-            "-t",
-            str(SEGMENT_SECONDS),
+            str(before_segment),
             "-i",
-            str(after),
+            str(after_segment),
             "-filter_complex",
-            filter_complex,
+            transition_filter,
             "-map",
             "[v]",
             "-r",
@@ -173,6 +214,7 @@ def build_case(ffmpeg: str, ffprobe: str, font: Path, item: dict) -> Path:
 
     print(
         f"{item_id}: built {output.relative_to(ROOT)} • {duration:.3f}s • "
+        f"{HOLD_SECONDS}s Before + {TRANSITION_SECONDS}s transition + {HOLD_SECONDS}s After • "
         f"{output.stat().st_size:,} bytes"
     )
     return output
@@ -198,7 +240,7 @@ def main() -> None:
 
     if not built:
         raise SystemExit("No publishable showcase videos were configured.")
-    print(f"Built {built} downloadable showcase MP4 slideshow(s).")
+    print(f"Built {built} downloadable 7-second showcase MP4(s) using the global iGlow video standard.")
 
 
 if __name__ == "__main__":
