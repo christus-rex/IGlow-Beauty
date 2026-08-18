@@ -156,9 +156,9 @@ function renderTransformations() {
     const title = item.title || 'Client result';
     const videoMarkup = videoPath
       ? `<div class="hero-actions">
-          <a class="button button-secondary" href="${escapeHtml(videoPath)}" download aria-label="Download 20-second before and after MP4 slideshow for ${escapeHtml(title)}">Download 20s MP4</a>
+          <a class="button button-secondary" href="${escapeHtml(videoPath)}" download aria-label="Download 7-second before and after MP4 showcase for ${escapeHtml(title)}">Download 7s MP4</a>
         </div>
-        <p><small>10 seconds Before · 10 seconds After · service title subtly overlaid</small></p>`
+        <p><small>3 seconds Before · 1 second transition · 3 seconds After · service title subtly overlaid</small></p>`
       : '';
 
     return `<article class="case-card">
