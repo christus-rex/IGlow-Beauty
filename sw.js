@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iglow-beauty-v23';
+const CACHE_NAME = 'iglow-beauty-v24';
 const INDEX_FALLBACK = './index.html';
 const APP_SHELL = [
   './',
