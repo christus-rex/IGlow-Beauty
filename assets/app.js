@@ -155,10 +155,9 @@ function renderTransformations() {
     const videoPath = showcaseVideoPath(item);
     const title = item.title || 'Client result';
     const videoMarkup = videoPath
-      ? `<div class="hero-actions">
-          <a class="button button-secondary" href="${escapeHtml(videoPath)}" download aria-label="Download 7-second before and after MP4 showcase for ${escapeHtml(title)}">Download 7s MP4</a>
-        </div>
-        <p><small>3 seconds Before · 1 second transition · 3 seconds After · service title subtly overlaid</small></p>`
+      ? `<div class="hero-actions showcase-download-row">
+          <a class="button button-primary showcase-download" href="${escapeHtml(videoPath)}" download aria-label="Download 7-second before and after MP4 showcase for ${escapeHtml(title)}">Download 7s MP4</a>
+        </div>`
       : '';
 
     return `<article class="case-card">
