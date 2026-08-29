@@ -109,8 +109,13 @@ function buildFilterChips() {
   }).join('');
 }
 
-function publishedDimensions(item) {
-  const declared = item.published_resolution || item.source_resolution || '';
+function publishedDimensions(item, field) {
+  const fieldResolution = field === 'before'
+    ? item.before_resolution
+    : field === 'after'
+      ? item.after_resolution
+      : '';
+  const declared = fieldResolution || item.published_resolution || item.source_resolution || '';
   const match = String(declared).match(/^(\d+)[xX](\d+)$/);
   return match ? { width: match[1], height: match[2] } : null;
 }
@@ -119,14 +124,16 @@ function comparisonMarkup(item, priority = false) {
   const title = item.title || 'Client result';
   const beforeAlt = item.before_alt || `Before ${title}`;
   const afterAlt = item.after_alt || `After ${title}`;
-  const dimensions = publishedDimensions(item);
-  const sizeAttrs = dimensions ? ` width="${dimensions.width}" height="${dimensions.height}"` : '';
+  const beforeDimensions = publishedDimensions(item, 'before');
+  const afterDimensions = publishedDimensions(item, 'after');
+  const beforeSizeAttrs = beforeDimensions ? ` width="${beforeDimensions.width}" height="${beforeDimensions.height}"` : '';
+  const afterSizeAttrs = afterDimensions ? ` width="${afterDimensions.width}" height="${afterDimensions.height}"` : '';
   const loading = priority ? 'eager' : 'lazy';
   const fetchPriority = priority ? ' fetchpriority="high"' : '';
 
   return `<div class="comparison-slider" data-comparison style="--split:50%">
-    <img class="comparison-image comparison-before" src="${escapeHtml(item.before_image)}" alt="${escapeHtml(beforeAlt)}"${sizeAttrs} loading="${loading}" decoding="async"${fetchPriority} />
-    <img class="comparison-image comparison-after" src="${escapeHtml(item.after_image)}" alt="${escapeHtml(afterAlt)}"${sizeAttrs} loading="${loading}" decoding="async"${fetchPriority} />
+    <img class="comparison-image comparison-before" src="${escapeHtml(item.before_image)}" alt="${escapeHtml(beforeAlt)}"${beforeSizeAttrs} loading="${loading}" decoding="async"${fetchPriority} />
+    <img class="comparison-image comparison-after" src="${escapeHtml(item.after_image)}" alt="${escapeHtml(afterAlt)}"${afterSizeAttrs} loading="${loading}" decoding="async"${fetchPriority} />
     <span class="comparison-label comparison-label-before">Before</span>
     <span class="comparison-label comparison-label-after">After</span>
     <span class="comparison-handle" aria-hidden="true"><span>↔</span></span>
