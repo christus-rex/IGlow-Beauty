@@ -205,6 +205,132 @@
       "service_confirmation_required": false,
       "related_review_ids": [],
       "featured": true
+    },
+    {
+      "id": "BA-006",
+      "title": "Champagne Blonde Balayage",
+      "service": "Balayage",
+      "service_tags": [
+        "hair",
+        "balayage",
+        "blonde balayage",
+        "champagne blonde",
+        "dimensional highlights",
+        "styling"
+      ],
+      "customer_label": "Client BA-006",
+      "before_image": "https://static.wixstatic.com/media/237855_bd57fe4ad17c4bd1a18aa4847068d587~mv2.jpg",
+      "before_alt": "Before balayage showing dark regrowth with warmer blonde lengths and uneven dimension.",
+      "after_image": "https://static.wixstatic.com/media/237855_de8911a308e14a8fbeb3e7bbeb7fa464~mv2.jpg",
+      "after_alt": "After balayage showing a blended champagne-beige blonde with soft dimensional ribbons and polished waves.",
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "10118.jpg",
+        "after_photo": "10114.jpg",
+        "before_video": null,
+        "after_video": null
+      },
+      "before_resolution": "1152x1536",
+      "after_resolution": "1152x1536",
+      "source_resolution": null,
+      "published_resolution": null,
+      "presentation_standard": null,
+      "caption": "Balayage: dark regrowth and warmer lengths refined into a luminous champagne-blonde blend with dimensional waves.",
+      "description": "A blonde balayage transformation creating a softer root transition, brighter dimensional ribbons, and a polished waved finish.",
+      "date": "2026-08-28",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Published after the project owner directly supplied the paired client images and identified this service as Balayage on 2026-08-28.",
+      "media_status": "published-original-high-resolution-images; original uploads retained",
+      "lighting_note": "Original salon images retained at supplied resolution. Capture angle and lighting differ between before and after.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
+    },
+    {
+      "id": "BA-007",
+      "title": "Golden Curl Color Refresh",
+      "service": "Hair Color",
+      "service_tags": [
+        "hair",
+        "hair color",
+        "curly hair",
+        "golden brown",
+        "caramel color",
+        "curl definition"
+      ],
+      "customer_label": "Client BA-007",
+      "before_image": "https://static.wixstatic.com/media/237855_2156365537bb4e4dae905fb5b4c9d60c~mv2.jpg",
+      "before_alt": "Before hair color showing long curly hair with a deep brown base and softer warm tones through the lengths.",
+      "after_image": "https://static.wixstatic.com/media/237855_ea60098690f743a98219402c301705f1~mv2.jpg",
+      "after_alt": "After hair color showing brighter golden-caramel dimension through defined curls over a rich brunette base.",
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "10153.jpg",
+        "after_photo": "10152.jpg",
+        "before_video": null,
+        "after_video": null
+      },
+      "before_resolution": "1263x1536",
+      "after_resolution": "1152x1536",
+      "source_resolution": null,
+      "published_resolution": null,
+      "presentation_standard": null,
+      "caption": "Hair Color: rich brunette curls refreshed with brighter golden-caramel dimension and enhanced visual contrast.",
+      "description": "A dimensional curly-hair color refresh adding brighter golden and caramel tones while preserving the depth of the brunette base.",
+      "date": "2026-08-28",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Published after the project owner directly supplied the paired client images and identified this service as Hair Color on 2026-08-28.",
+      "media_status": "published-original-high-resolution-images; original uploads retained",
+      "lighting_note": "Original salon images retained at supplied resolution. Capture angle and lighting differ between before and after.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
+    },
+    {
+      "id": "BA-008",
+      "title": "Rich Burgundy Hair Color",
+      "service": "Hair Color",
+      "service_tags": [
+        "hair",
+        "hair color",
+        "burgundy hair",
+        "wine red",
+        "red violet",
+        "styling"
+      ],
+      "customer_label": "Client BA-008",
+      "before_image": "https://static.wixstatic.com/media/237855_855767c2d2024cf98849af0f496de1a5~mv2.jpg",
+      "before_alt": "Before hair color styling showing a straight burgundy-red finish with visible tonal variation through the lengths.",
+      "after_image": "https://static.wixstatic.com/media/237855_7913691ec29e47048ced7e39576d9eab~mv2.jpg",
+      "after_alt": "After hair color showing a deep glossy burgundy-wine finish styled into full soft curls.",
+      "before_video": null,
+      "after_video": null,
+      "source_media": {
+        "before_photo": "10132.jpg",
+        "after_photo": "10128.jpg",
+        "before_video": null,
+        "after_video": null
+      },
+      "before_resolution": "936x1536",
+      "after_resolution": "975x1536",
+      "source_resolution": null,
+      "published_resolution": null,
+      "presentation_standard": null,
+      "caption": "Hair Color: a rich burgundy-wine tone finished with glossy depth and full, soft curls.",
+      "description": "A burgundy hair-color result emphasizing deeper wine-red richness and shine, completed with a voluminous curled finish.",
+      "date": "2026-08-28",
+      "consent_confirmed": true,
+      "publication_authorized": true,
+      "publication_authorization_note": "Published after the project owner directly supplied the paired client images and identified this service as Hair Color on 2026-08-28.",
+      "media_status": "published-original-high-resolution-images; original uploads retained",
+      "lighting_note": "Original client images retained at supplied resolution. Styling, background, and lighting differ between captures.",
+      "service_confirmation_required": false,
+      "related_review_ids": [],
+      "featured": true
     }
   ],
   "schema": {
@@ -251,6 +377,8 @@
     "related_review_ids": [
       "review id from data/reviews.json"
     ],
-    "featured": "boolean"
+    "featured": "boolean",
+    "before_resolution": "string or null",
+    "after_resolution": "string or null"
   }
 }
