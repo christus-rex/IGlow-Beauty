@@ -46,16 +46,25 @@ jobs:
                   continue
 
               item_id = item.get('id', 'unknown')
-              declared = str(item.get('published_resolution') or item.get('source_resolution') or '').strip()
-              match = re.fullmatch(r'(\d+)[xX](\d+)', declared)
-              if not match:
-                  raise SystemExit(f'{item_id}: missing or invalid published/source resolution; refusing to publish unverifiable customer media.')
-
-              expected = (int(match.group(1)), int(match.group(2)))
               for field in ('before_image', 'after_image'):
                   ref = item.get(field)
                   if not ref:
                       raise SystemExit(f'{item_id}: missing {field}.')
+
+                  resolution_field = 'before_resolution' if field == 'before_image' else 'after_resolution'
+                  declared = str(
+                      item.get(resolution_field)
+                      or item.get('published_resolution')
+                      or item.get('source_resolution')
+                      or ''
+                  ).strip()
+                  match = re.fullmatch(r'(\d+)[xX](\d+)', declared)
+                  if not match:
+                      raise SystemExit(
+                          f'{item_id}: missing or invalid {resolution_field}/published/source resolution for {field}; '
+                          'refusing to publish unverifiable customer media.'
+                      )
+                  expected = (int(match.group(1)), int(match.group(2)))
 
                   if ref.startswith(('http://', 'https://')):
                       request = urllib.request.Request(ref, headers={'User-Agent': 'iGlow-media-fidelity-check/1.0'})
